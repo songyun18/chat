@@ -1,0 +1,32 @@
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">共有 <?php echo $page_info['total_count'];?> 条记录 <?php echo $page_info['total_page'];?> 页</div>
+		</div>
+		<?php if($page_info['total_count']):?>
+		<div class="col-sm-8">
+			<div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+				<ul class="pagination">
+					<?php if($page_info['page']==1):?>
+					<li class="paginate_button previous <?php if($page_info['page']==1) echo 'disabled';?>" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="javascript:;">首页</a></li>
+					<?php else:?>
+					<li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="<?php echo pcUrl(null,null,array_merge($page_info['params'],array('p'=>1)));?>">首页</a></li>
+					<?php endif;?>
+					<?php if(count($page_info['list'])<$page_info['total_page'] && $page_info['list'][0]!=1):?>
+					<li class="paginate_button disabled" aria-controls="dataTables-example" tabindex="0"><a href="javascript">...</a></li>
+					<?php endif;?>
+					<?php foreach($page_info['list'] as $i):?>
+					<li class="paginate_button <?php if($i==$page_info['page']) echo 'active';?>" aria-controls="dataTables-example" tabindex="0"><a href="<?php echo pcUrl(null,null,array_merge($page_info['params'],array('p'=>$i)));?>"><?php echo $i;?></a></li>
+					<?php endforeach;?>
+					<?php if(count($page_info['list'])<$page_info['total_page'] && array_pop($page_info['list'])!=$page_info['total_page']):?>
+					<li class="paginate_button disabled" aria-controls="dataTables-example" tabindex="0"><a href="javascript">...</a></li>
+					<?php endif;?>
+					<?php if($page_info['page']==$page_info['total_page']):?>
+					<li class="paginate_button next disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="javascript:;">尾页</a></li>
+					<?php else:?>
+					<li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="<?php echo pcUrl(null,null,array_merge($page_info['params'],array('p'=>$page_info['total_page'])));?>">尾页</a></li>
+					<?php endif;?>
+				</ul>
+			</div>
+		</div>
+		<?php endif;?>
+	</div>

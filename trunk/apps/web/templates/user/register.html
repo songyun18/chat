@@ -1,0 +1,14 @@
+<div class="login_form">
+	<form method="post">
+		<p>用户名：<input name="user_name" value="" class="input_text" /></p>
+		<p>密　码：<input name="password" value="" class="input_text" type="password" /></p>
+		<p>确　认：<input name="password1" value="" class="input_text" type="password" /></p>
+		<p class="validator">
+			验证码：<input name="validator" value="" class="input_text"/>
+			<img src="<?php echo pcUrl('index','validator');?>" onclick="this.src='<?php echo pcUrl('index','validator');?>?'+Math.random();" />
+		</p>
+		<p class="padding_10">
+			<button class="button orange">注册</button>
+		</p>
+	</form>
+</div>

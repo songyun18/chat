@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="keywords"content="">
+<meta name="description" content="">
+<title>登录</title>
+<link href="<?php echo ATTMS_URL;?>bms/login/css/style.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo ATTMS_URL;?>bms/login/css/font.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo ATTMS_URL;?>bms/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo ATTMS_URL;?>bms/js/underscore-min.js"></script>
+<script type="text/javascript" src="<?php echo ATTMS_URL;?>bms/js/init.js"></script>
+<script>
+$(function()
+{
+	$('[name="username"]').trigger('focus');
+});
+</script>
+</head>
+<body>
+<div class="body">
+<h1 class="login_caption"><?php echo $site_name;?>后台管理</h1>
+<div class="login_form">
+	<div class="login_form_inner">
+		<form id="loginForm" role="form" method="post">
+		<p>
+			用户名<br /><input name="username" class="input_text full_width" />
+		</p>
+		<p>
+			密码<br /><input name="password" type="password" class="input_text full_width" />
+		</p>
+		<p>
+			验证码<br />
+			<input name="checkcode" class="input_text qrcode" />
+			
+			<?php echo $checkcode;?>
+		</p>
+		<div class="height_20"></div>
+		<button class="button orange full_width">登录</button>
+		</form>
+	</div>
+</div>
+</div>
+</body>
+</html>

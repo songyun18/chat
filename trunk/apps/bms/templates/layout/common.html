@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title><?php echo $site_name;?> - 后台管理系统</title>
+
+		<!-- Bootstrap Core CSS -->
+		<link href="<?php echo ATTMS_URL;?>bms/css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- MetisMenu CSS -->
+		<link href="<?php echo ATTMS_URL;?>bms/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+		<!-- DataTables CSS -->
+		<link href="<?php echo ATTMS_URL;?>bms/css/plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+		<!-- DataTables Responsive CSS -->
+		<link href="<?php echo ATTMS_URL;?>bms/css/plugins/dataTables.responsive.css" rel="stylesheet">
+
+		<!-- Timeline CSS -->
+		<link href="<?php echo ATTMS_URL;?>bms/css/plugins/timeline.css" rel="stylesheet">
+
+		<!-- Custom CSS -->
+		<link href="<?php echo ATTMS_URL;?>bms/css/sb-admin-2.css" rel="stylesheet">
+
+		<!-- Morris Charts CSS -->
+		<link href="<?php echo ATTMS_URL;?>bms/css/plugins/morris.css" rel="stylesheet">
+		
+		<!-- Custom CSS -->
+		<link href="<?php echo ATTMS_URL;?>bms/css/custom.css" rel="stylesheet">
+
+		<!-- Custom Fonts -->
+		<link href="<?php echo ATTMS_URL;?>bms/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	  <![endif]-->
+	<!-- jQuery Version 1.11.0 -->
+	<script src="<?php echo ATTMS_URL;?>bms/js/jquery-1.11.0.js"></script>
+	<!-- JavaScript validate -->
+	<script src="<?php echo ATTMS_URL;?>bms/js/jquery.validate.min.js"></script>
+	
+	</head>
+	<body>
+    <div id="wrapper">
+		<nav style="margin-bottom: 0" role="navigation" class="navbar navbar-default navbar-static-top">
+			<div class="navbar-header">
+				<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="javascript:;" class="navbar-brand"><?php echo $site_name;?>管理后台</a>
+			</div>
+			<!-- /.navbar-header -->
+			<ul class="nav navbar-top-links navbar-right">
+				<li class="dropdown">
+					<a href="#" data-toggle="dropdown" class="dropdown-toggle">
+						<i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-user" style="left:0;">
+						<li>
+							<a href="<?php echo pcUrl('index','flush');?>"><i class="fa fa-refresh fa-fw"></i>刷新缓存</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="<?php echo pcUrl('index','logout');?>"><i class="fa fa-sign-out fa-fw"></i>退出登录</a>
+						</li>
+					</ul>
+					<!-- /.dropdown-user -->
+				</li>
+				<!-- /.dropdown -->
+			</ul>
+			<!-- /.navbar-top-links -->
+
+			<div role="navigation" class="navbar-default sidebar">
+				<div class="sidebar-nav navbar-collapse">
+					<ul id="side-menu" class="nav in">
+						<li class="sidebar-search">
+						<form class="search-form">
+						<div class="input-group custom-search-form">
+							<input type="text" class="form-control" placeholder="Search..." name="nav_search">
+							<span class="input-group-btn">
+								<button class="btn btn-default nav-search-button">
+									<i class="fa fa-search"></i>
+								</button>
+							</span>
+						</div>
+						</form>
+						<!-- /input-group -->
+						</li>
+						<li class="normal-nav">
+							<a href="<?php echo pcUrl('menu','index');?>"<?php if(ROUTE_C=='menu'&&ROUTE_A=='index') echo ' class="active"';?>>首页</a>
+						</li>
+						<?php foreach($menu_list as $row):?>
+						<li class="normal-nav">
+							<?php if(count($row['children'])):?>
+							<a href="#"><?php echo $row['name'];?><span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level collapse <?php if($row['in']) echo 'in';?>">
+								<?php foreach($row['children'] as $r):?>
+								<li>
+									<a href="<?php echo pcUrl($r['c'],$r['a']);?>"<?php if($r['active']) echo ' class="active"';?>><?php echo $r['name'];?></a>
+								</li>
+								<?php endforeach;?>
+							</ul>
+							<?php else:?>
+							<a href="<?php echo pcUrl($row['c'],$row['a']);?>"<?php if($row['active']) echo ' class="active"';?>><?php echo $row['name'];?></a>
+							<?php endif;?>
+							<!-- /.nav-second-level -->
+						</li>
+						<?php endforeach;?>
+					</ul>
+				</div>
+				<!-- /.sidebar-collapse -->
+			</div>
+			<!-- /.navbar-static-side -->
+		</nav>
+		<?php echo $main_content;?>
+        <!-- /#page-wrapper -->
+    </div>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="<?php echo ATTMS_URL;?>bms/js/bootstrap.min.js"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="<?php echo ATTMS_URL;?>bms/js/plugins/metisMenu/metisMenu.min.js"></script>
+
+	<!-- Morris Charts JavaScript -->
+	<!--
+	<script src="<?php echo ATTMS_URL;?>plugins/morris/raphael.min.js"></script>
+	<script src="<?php echo ATTMS_URL;?>plugins/morris/morris.min.js"></script>
+	<script src="<?php echo ATTMS_URL;?>plugins/morris/morris-data.js"></script>
+	-->
+
+	<!-- Custom Theme JavaScript -->
+	<script src="<?php echo ATTMS_URL;?>bms/js/sb-admin-2.js"></script>
+	
+	<script src="<?php echo ATTMS_URL;?>bms/js/underscore-min.js"></script>
+	<script src="<?php echo ATTMS_URL;?>bms/js/init.js"></script>
+	<script type="text/template" id="regionTemplate" data-list-url="<?php echo pcUrl('index','regionList');?>" data-parent-url="<?php echo pcUrl('index','parentRegionId');?>">
+		<div class="row">
+			<div class="col-lg-4">
+				<select class="form-control" id="regionSelect0">
+					<%_.each(regionList[0],function(row){%>
+					<option value="<%=row.region_id%>" <%if(row.region_id==idList[0]){%>selected<%}%>><%=row.region_name%></option>
+					<%})%>
+				</select>
+			</div>
+			<div class="col-lg-4">
+				<select class="form-control" id="regionSelect1">
+					<%_.each(regionList[1],function(row){%>
+					<option value="<%=row.region_id%>" <%if(row.region_id==idList[1]){%>selected<%}%>><%=row.region_name%></option>
+					<%})%>
+				</select>
+			</div>
+			<div class="col-lg-4">
+				<select class="form-control" id="regionSelect2" name="region_id">
+					<%_.each(regionList[2],function(row){%>
+					<option value="<%=row.region_id%>" <%if(row.region_id==idList[2]){%>selected<%}%>><%=row.region_name%></option>
+					<%})%>
+				</select>
+			</div>
+		</div>
+	</script>
+	<script>
+	$('.search-form').on('submit',function()
+	{
+		var scope={};
+		scope['menu_list']=<?php echo json_encode($menu_list);?>;
+		
+		var value=$('[name="nav_search"]').val();
+		$('#side-menu').find('.search-nav').remove();
+		if(!value.length)
+		{
+			$('#side-menu').find('.normal-nav').show();
+		}
+		else
+		{
+			scope.menu=[];
+			_.each(scope.menu_list,function(row)
+			{
+
+				if(row.children)
+				{
+					_.each(row.children,function(row1)
+					{
+						if(-1!==row1.name.indexOf(value))
+							scope.menu.push(row1);
+					});
+				}
+				else
+				{
+					if(-1!==row.name.indexOf(value))
+						scope.menu.push(row);
+				}
+			});
+			
+			var html=$('#navTemplate').html();
+			html=_.template(html)(scope);
+			
+			$('#side-menu').find('.normal-nav').hide();
+			$('#side-menu').append(html);
+		}
+		
+		return false;
+	});
+	</script>
+	<script type="text/template" id="navTemplate">
+	<%_.each(menu,function(row,index){%>
+	<li class="search-nav">
+		<a href="<%=row.url%>"><%=row.name%></a>
+	</li>
+	<%})%>
+	</script>
+	</body>
+</html>

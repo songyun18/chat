@@ -1,0 +1,90 @@
+defined('IN_PHPFRAME') or exit('No permission resources.');
+Base::loadAppClass('SystemController');
+
+class <?php echo $model_name;?>Controller extends SystemController
+{
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
+	public function indexAction()
+	{
+		$filter=array();
+		//$filter['title']=getgpc('title');
+		$this->assign('filter',$filter);
+		
+		$<?php echo $model_name;?>Model=D('<?php echo ucfirst($model_name);?>');
+		$result=$<?php echo $model_name;?>Model->getList($filter);
+		
+		$this->assign('list',$result['list']);
+		$this->assign('page_info',$result['page']);
+		
+		$this->assign('title','<?php echo $model_desc;?>列表');
+		$this->display();
+	}
+
+	public function addAction()
+	{
+		$model=D('<?php echo ucfirst($model_name);?>');
+		if(isPost())
+		{
+			//$this->upload();
+			$data=getPost();
+			
+			$result=$model->add($data);
+			if(!$result['flag'])
+				$this->error($result['message']);
+			else
+				$this->success('添加<?php echo $model_desc;?>成功',pcUrl('<?php echo $model_name;?>','index'));
+		}
+
+		$check_js=$model->checkjs();
+		$this->assign('check_js',$check_js);
+		
+		$this->assign('title','添加<?php echo $model_desc;?>');
+		$this->display('detail');
+	}
+	
+	public function detailAction()
+	{
+		$<?php echo $primary_key;?>=getgpc('id');
+		if(!$<?php echo $primary_key;?>)
+			$this->error('参数错误');
+		
+		$model=D('<?php echo ucfirst($model_name);?>');
+		if(isPost())
+		{
+			//$this->upload();
+			$data=getPost();
+			$result=$model->update($<?php echo $primary_key;?>,$data);
+			
+			if(!$result['flag'])
+				$this->error($result['message']);
+			else
+				$this->success('修改<?php echo $model_desc;?>成功',pcUrl('<?php echo $model_name;?>','index'));
+		}
+		
+		$info=$model->getInfo($<?php echo $primary_key;?>);
+		$this->assign('info',$info);
+		
+		$check_js=$model->checkjs();
+		$this->assign('check_js',$check_js);
+		
+		$this->assign('title','修改<?php echo $model_desc;?>');
+		$this->display('detail');
+	}
+
+	public function deleteAction()
+	{
+		$<?php echo $primary_key;?>=getgpc('id');
+		if(!$<?php echo $primary_key;?>)
+			$this->error('参数错误');
+		
+		$flag=D('<?php echo ucfirst($model_name);?>')->remove($<?php echo $primary_key;?>);
+		if(!$flag)
+			$this->error('删除失败');
+		else
+			$this->success('删除成功');
+	}
+}

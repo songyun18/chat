@@ -1,0 +1,48 @@
+
+		<!-- jQuery Version 1.11.0 -->
+		<script src="<?php echo ATTMS_URL;?>bms/js/jquery-1.11.0.js"></script>
+		<!-- JavaScript validate -->
+		<script src="<?php echo ATTMS_URL;?>bms/js/jquery.validate.min.js"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="<?php echo ATTMS_URL;?>bms/js/bootstrap.min.js"></script>
+
+		<!-- Metis Menu Plugin JavaScript -->
+		<script src="<?php echo ATTMS_URL;?>bms/js/plugins/metisMenu/metisMenu.min.js"></script>
+
+		<!-- Morris Charts JavaScript -->
+		<!--
+		<script src="<?php echo ATTMS_URL;?>plugins/morris/raphael.min.js"></script>
+		<script src="<?php echo ATTMS_URL;?>plugins/morris/morris.min.js"></script>
+		<script src="<?php echo ATTMS_URL;?>plugins/morris/morris-data.js"></script>
+		-->
+
+		<!-- Custom Theme JavaScript -->
+		<script src="<?php echo ATTMS_URL;?>bms/js/sb-admin-2.js"></script>
+		<script src="<?php echo ATTMS_URL;?>bms/js/underscore-min.js"></script>
+		<script src="<?php echo ATTMS_URL;?>bms/js/region.js"></script>
+		<script type="text/template" id="regionTemplate" data-list-url="<?php echo pcUrl('index','regionList');?>" data-parent-url="<?php echo pcUrl('index','parentRegionId');?>">
+			<div class="row">
+				<div class="col-lg-4">
+					<select class="form-control" id="regionSelect0">
+						<%_.each(regionList[0],function(row){%>
+						<option value="<%=row.region_id%>" <%if(row.region_id==idList[0]){%>selected<%}%>><%=row.region_name%></option>
+						<%})%>
+					</select>
+				</div>
+				<div class="col-lg-4">
+					<select class="form-control" id="regionSelect1">
+						<%_.each(regionList[1],function(row){%>
+						<option value="<%=row.region_id%>" <%if(row.region_id==idList[1]){%>selected<%}%>><%=row.region_name%></option>
+						<%})%>
+					</select>
+				</div>
+				<div class="col-lg-4">
+					<select class="form-control" id="regionSelect2" name="region_id">
+						<%_.each(regionList[2],function(row){%>
+						<option value="<%=row.region_id%>" <%if(row.region_id==idList[2]){%>selected<%}%>><%=row.region_name%></option>
+						<%})%>
+					</select>
+				</div>
+			</div>
+		</script>

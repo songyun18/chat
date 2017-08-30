@@ -1,0 +1,12 @@
+	<div class="logo">
+		<h1> <a href="<?php echo $site_url;?>"><?php echo $site_name;?></a></h1>
+	</div>
+	<div class="nav">
+		<ul>
+			<li><a href="<?php echo $site_url;?>">首页</a></li>
+			<?php foreach($site_nav as $row):?>
+			<li><a href="<?php echo $row['article_id']?pcUrl('index','article',array('id'=>$row['article_id'])):$row['url'];?>"><?php echo $row['nav_name'];?></a></li>
+			<?php endforeach;?>
+		</ul>
+		<div class="clear"></div>
+	</div>

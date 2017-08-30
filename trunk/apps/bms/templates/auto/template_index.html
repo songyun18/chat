@@ -1,0 +1,79 @@
+
+			<div id="page-wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="page-header">&lt;?php echo $title;?&gt;</h1>
+					</div>
+					<!-- /.col-lg-12 -->
+				</div>
+				<!-- /.row -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pull-right">
+									<a href="&lt;?php echo pcUrl('<?php echo $model_name;?>','add');?&gt;">添加记录</a>
+								</div>
+								列表
+							</div>
+							<!-- /.panel-heading -->
+							<div class="panel-body">
+								<div class="dataTable_wrapper form-inline dt-bootstrap no-footer">
+									<div class="row">
+										<div class="col-sm-12">
+											<div id="dataTables-example_filter" class="dataTables_filter">
+												<!--
+												<form action="index.php" method="get">
+													<label>
+														文章名：
+														<input class="form-control" name="title" value="&lt;?php echo $filter['title'];?&gt;" />
+													</label>
+													&nbsp;
+													<input type="hidden" name="c" value="&lt;?php echo ROUTE_C;?&gt;">
+													<input type="hidden" name="a" value="&lt;?php echo ROUTE_A;?&gt;">
+													<button class="btn-success btn-sm btn">搜索</button>
+												</form>
+												-->
+											</div>
+										</div>
+									</div>
+									<div class="table-responsive">
+										<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+											<thead>
+												<tr>
+													<th>id</th>
+													<?php foreach($fields as $row):?>
+													<th><?php echo $row['comment'];?></th>
+													<?php endforeach;?>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody>
+												&lt;?php foreach($list as $row):?&gt;
+												<tr class="odd gradeA">
+													<td>&lt;?php echo $row['<?php echo $primary_key;?>'];?&gt;</td>
+													<?php foreach($fields as $row):?>
+													<td>&lt;?php echo $row['<?php echo $row['name'];?>'];?&gt;</td>
+													<?php endforeach;?>
+													<td class="center" width="150">
+														<a href="&lt;?php echo pcUrl('<?php echo $model_name;?>','detail',array('id'=>$row['<?php echo $primary_key;?>']));?&gt;" class="btn btn-primary btn-xs">详情</a>
+														<a href="&lt;?php echo pcUrl('<?php echo $model_name;?>','delete',array('id'=>$row['<?php echo $primary_key;?>']));?&gt;" onclick="javascript:return window.confirm('确定要删除吗？');" class="btn btn-danger btn-xs">删除</a>
+													</td>
+												</tr>
+												&lt;?php endforeach;?&gt;
+											</tbody>
+										</table>
+									</div>
+									&lt;?php include T('public','pager');?&gt;
+								</div>
+								<!-- /.table-responsive -->
+							</div>
+							<!-- /.panel-body -->
+						</div>
+						<!-- /.panel -->
+					</div>
+					<!-- /.col-lg-12 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /#page-wrapper -->

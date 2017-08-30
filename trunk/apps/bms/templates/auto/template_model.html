@@ -1,0 +1,123 @@
+Base::loadSysClass('Model');
+
+class <?php echo ucfirst($model_name);?>Model extends Model
+{
+	public function __construct($table_name='',$table_pre='')
+	{
+		parent::__construct($table_name,$table_pre);
+		
+		$fields=array(
+			<?php foreach($fields as $row):?>
+				'<?php echo $row['name'];?>'=>array(
+				<?php foreach($row['props'] as $key=>$v):?>
+				'<?php echo $key;?>'=><?php echo $v['value']?$v['value']:'true';?>,
+				<?php endforeach;?>
+				'name'=>'<?php echo $row['comment'];?>',
+			),
+			<?php endforeach;?>
+		);
+		$this->setFields($fields);
+	}
+
+	public function getList($filter=array(),$page_size=10)
+	{
+		$where=' 1 ';
+		
+		/*
+		if(isset($filter['title']))
+			$where.=' and a.title like "%'.$filter['title'].'%"';
+		*/
+		
+		$count  = $this->getCount($where);    //计算总数
+		$page   = new Page($count, $page_size);
+		
+		$select="*";
+		$order = '<?php echo $primary_key;?> desc';
+		$limit=$page->firstRow.','.$page->listRows;
+		
+		$result=array();
+		$result['list']=$this->field($select)->order($order)->limit($limit)->select();
+		
+		foreach($result['list'] as $key=>$row)
+		{
+			$result['list'][$key]=$row;
+		}
+		
+		$result['page']=$page->getPageInfo();
+		$result['next_page']=$page->getNextPage();
+		return $result;
+	}
+
+
+	public function getCount($where)
+	{
+		$count=$this->where($where)->count();
+		return $count;
+	}
+	
+	public function getInfo($<?php echo $primary_key;?>)
+	{
+		$info=$this->where(array(
+			'<?php echo $primary_key;?>'=>$<?php echo $primary_key;?>
+			
+		))->find();
+		
+		return $info;
+	}
+	
+	//添加记录
+	public function add($data)
+	{
+		$result=$this->checkPost($data);
+		if(!$result['flag'])
+			return $result;
+		
+		$data1=$result['data'];
+		unset($result['data']);
+		$result['flag']=parent::add($data1);
+		if(!$result['flag'])
+			$result['message']='插入记录失败';
+		
+		return $result;
+	}
+	
+	//修改记录
+	public function update($<?php echo $primary_key;?>,$data)
+	{
+		$result=$this->checkPost($data,'update');
+		if(!$result['flag'])
+			return $result;
+		
+		$data1=$result['data'];
+		unset($result['data']);
+		$result['flag']=false;
+
+		$info=$this->getInfo($<?php echo $primary_key;?>);
+		if(!$info)
+		{
+			$result['<?php echo $primary_key;?>错误'];
+			return $result;
+		}
+
+		$result['flag']=$this->where(array(
+			'<?php echo $primary_key;?>'=>$<?php echo $primary_key;?>
+			
+		))->save($data1);
+		
+		if(!$result['flag'])
+			$result['message']='修改记录失败';
+
+		return $result;
+	}
+	
+	public function remove($<?php echo $primary_key;?>)
+	{
+		$flag=$this->where(array(
+		'<?php echo $primary_key;?>'=>$<?php echo $primary_key;?>
+		
+		))->delete();
+		
+		return $flag;
+	}
+	
+}

@@ -1,0 +1,147 @@
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header"><?php echo $title;?></h1>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="pull-right">
+						<a href="<?php echo pcUrl('user','add');?>">添加记录</a>
+					</div>
+					列表
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div class="dataTable_wrapper form-inline dt-bootstrap no-footer">
+						<div class="row">
+							<div class="col-sm-12">
+								<div id="dataTables-example_filter" class="dataTables_filter">
+									<!--
+												<form action="index.php" method="get">
+													<label>
+														文章名：
+														<input class="form-control" name="title" value="<?php echo $filter['title'];?>" />
+													</label>
+													&nbsp;
+													<input type="hidden" name="c" value="<?php echo ROUTE_C;?>">
+													<input type="hidden" name="a" value="<?php echo ROUTE_A;?>">
+													<button class="btn-success btn-sm btn">搜索</button>
+												</form>
+												-->
+								</div>
+							</div>
+						</div>
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+								<thead>
+									<tr>
+										<th></th>
+										<th>id</th>
+										<th>用户名</th>
+										<th>昵称</th>
+										<th>性别</th>
+										<th>上次登录</th>
+										<th>上次登录ip</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php foreach($list as $row):?>
+								<tr class="odd gradeA">
+									<td><input type="checkbox" name="checkbox_id" value="<?php echo $row['user_id'];?>" /></td>
+									<td><?php echo $row['user_id'];?></td>
+									<td><?php echo $row['user_name'];?></td>
+									<td><?php echo $row['nick_name'];?></td>
+									<td><?php echo $row['gender_exp'];?></td>
+									<td><?php echo $row['last_login_time_exp'];?></td>
+									<td><?php echo $row['last_login_ip'];?></td>
+									<td class="center" width="150">
+										<a href="<?php echo pcUrl('user','detail',array('id'=>$row['user_id']));?>" class="btn btn-primary btn-xs">详情</a>
+										<a href="<?php echo pcUrl('user','delete',array('id'=>$row['user_id']));?>" onclick="javascript:return window.confirm('确定要删除吗？');" class="btn btn-danger btn-xs">删除</a>
+									</td>
+								</tr>
+								<?php endforeach;?>
+								<tr class="odd gradeA">
+									<td colspan="8">
+										<label>
+											<input type="checkbox" name="checkall" />&nbsp;&nbsp;&nbsp;全选
+										</label>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<div>
+							<a href="<?php echo pcUrl('user','batchDelete');?>" class="btn btn-default btn-ms batch-button">批量删除</a>
+						</div>
+						<?php include T('public','pager');?>
+					</div>
+					<!-- /.table-responsive -->
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+</div>
+<!-- /#page-wrapper -->
+<script>
+$(function()
+{
+	$("[name='checkall']").on('click',function()
+	{
+		var checked=this.checked;
+
+		if(checked)
+			$("[name='checkbox_id']").prop('checked','checked');
+		else
+			$("[name='checkbox_id']").removeAttr('checked');
+	});
+
+	$('.batch-button').on('click',function()
+	{
+		var url=$(this).attr('href');
+		var ids=getIds();
+		if(!ids.length)
+		{
+			alert('请选择记录');
+			return false;
+		}
+		var param={};
+		param.ids=ids;
+
+		$.post(url,param,function(data)
+		{
+			data=$.parseJSON(data);
+			if(!data.flag)
+			alert(data.message);
+			else
+			location.href=location.href;
+		});
+
+		return false;
+	});
+});
+
+function getIds()
+{
+	var ids=[];
+	$("[name='checkbox_id']").each(function()
+	{
+		if(this.checked)
+		{
+			var value=$(this).val();
+			ids.push(value);
+		}
+	});
+
+	return ids;
+}
+</script>

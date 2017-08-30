@@ -1,0 +1,87 @@
+			<div id="page-wrapper">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="page-header"><?php echo $title;?></h1>
+					</div>
+					<!-- /.col-lg-12 -->
+				</div>
+				<!-- /.row -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="pull-right">
+									<a href="<?php echo pcUrl('link','add');?>">添加友情链接</a>
+								</div>
+								友情链接列表
+							</div>
+							<!-- /.panel-heading -->
+							<div class="panel-body">
+								<div class="dataTable_wrapper form-inline dt-bootstrap no-footer">
+									<div class="row">
+										<div class="col-sm-12">
+											<div id="dataTables-example_filter" class="dataTables_filter">
+												<!--
+												<form action="index.php" method="get">
+													<label>
+														文章名：
+														<input class="form-control" name="title" value="<?php echo $filter['title'];?>" />
+													</label>
+													&nbsp;
+													<label>
+														分类名：
+														<select class="form-control" name="link_id">
+															<option value="-1">所有</option>
+															<?php foreach($link_list as $row):?>
+															<option value="<?php echo $row['link_id'];?>" <?php if($filter['link_id']==$row['link_id']) echo 'selected';?>><?php echo $row['link_name'];?></option>
+															<?php endforeach;?>
+														</select>
+													</label>
+													&nbsp;&nbsp;
+													<input type="hidden" name="c" value="<?php echo ROUTE_C;?>">
+													<input type="hidden" name="a" value="<?php echo ROUTE_A;?>">
+													<button class="btn-success btn-sm btn">搜索</button>
+												</form>
+												-->
+											</div>
+										</div>
+									</div>
+									<div class="table-responsive">
+										<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+											<thead>
+												<tr>
+													<th>id</th>
+													<th>友情链接名</th>
+													<th>地址</th>
+													<th>是否显示</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php foreach($list as $row):?>
+												<tr class="odd gradeA">
+													<td><?php echo $row['link_id'];?></td>
+													<td><?php echo $row['link_name'];?></td>
+													<td><?php echo $row['link_url'];?></td>
+													<td><?php echo $row['is_display_exp'];?></td>
+													<td class="center" width="150">
+														<a href="<?php echo pcUrl('link','detail',array('id'=>$row['link_id']));?>" class="btn btn-primary btn-xs">详情</a>
+														<a href="<?php echo pcUrl('link','delete',array('id'=>$row['link_id']));?>" onclick="javascript:return window.confirm('确定要删除吗？');" class="btn btn-danger btn-xs">删除</a>
+													</td>
+												</tr>
+												<?php endforeach;?>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- /.table-responsive -->
+							</div>
+							<!-- /.panel-body -->
+						</div>
+						<!-- /.panel -->
+					</div>
+					<!-- /.col-lg-12 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /#page-wrapper -->
