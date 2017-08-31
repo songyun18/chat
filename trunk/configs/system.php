@@ -3,8 +3,8 @@ return array(
     // 网站路径
     'web_path' => '/',
     // Session配置
-    'session_storage' => 'mysql',
-    //'session_storage' => 'files',
+    //'session_storage' => 'mysql',
+    'session_storage' => 'files',
     'session_ttl' => 1800,
     // 'session_savepath' => CACHE_PATH . 'sessions/',
     'session_n' => 0,
@@ -17,9 +17,9 @@ return array(
     'upload_path' => PHPFRAME_PATH . 'apps/attms/uploadfile/',
     'attachment_stat' => '1', // 是否记录附件使用状态 0 统计 1 统计， 注意: 本功能会加重服务器负担
 	
-	'site_url' => 'http://blog.test.com/',
-    'upload_url' => 'http://blog.test.com/attms/uploadfile/', // 附件路径
-    'attms_url' => 'http://blog.test.com/attms/',
+	'site_url' => 'http://chat.test.com/',
+    'upload_url' => 'http://chat.test.com/attms/uploadfile/', // 附件路径
+    'attms_url' => 'http://chat.test.com/attms/',
 	
     'charset' => 'utf-8', // 网站字符集
     'timezone' => 'Etc/GMT-8', // 网站时区（只对php 5.1以上版本有效），Etc/GMT-8 实际表示的是

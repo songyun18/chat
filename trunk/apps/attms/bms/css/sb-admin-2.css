@@ -142,6 +142,10 @@ body {
     }
 }
 
+@media(max-width:768px) {
+	.navbar-top-links .dropdown-user { right:auto; left:0;}
+}
+
 .btn-outline {
     color: inherit;
     background-color: transparent;

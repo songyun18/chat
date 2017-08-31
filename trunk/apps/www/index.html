@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title>首页</title>
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<link href="css/font.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/underscore-min.js"></script>
+	<script type="text/javascript" src="js/init.js"></script>
+</head>
+<body>
+<script>
+function pcUrl(c,a,params)
+{
+	var sitePath='../';
+	var hostUrl='../rest/';
+
+	if(params==undefined)
+		params={};
+
+	if(typeof c !='object')
+	{
+		if(c) params.c=c;
+	}
+	else
+		params=c;
+	if(typeof a !='object')
+	{
+		//params.m='Mobile';
+		if(a) params.a=a;
+	}
+	else
+		params=a;
+
+	var url=hostUrl+'?';
+
+	for(var i in params)
+	{
+		url+=i+'='+params[i]+'&';
+	}
+	url=url.substr(0,url.length-1);
+	return url;
+}
+$(function()
+{
+	//var url=pcUrl('user','login');
+	var url=pcUrl('message','index');
+	//var url=pcUrl('friend','add');
+	var param={};
+	param.chat_id=1;
+	
+	/*
+	param.user_name="songyun18";
+	param.password="1234qwer";
+	*/
+	$.post(url,param,function(data)
+	{
+		data=$.parseJSON(data);
+		console.log(data);
+	});
+});
+</script>
+</body>
+</html>

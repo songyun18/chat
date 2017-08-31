@@ -14,7 +14,7 @@
 					在模型自动化之前，您需要先检查相关目录是否具有可读写权限
 					</p>
 					<?php foreach($folder_list as $index=>$row):?>
-					<p <?php if(!$row['flag']) echo 'class="text-danger"';?>><?php echo $index;?>.<?php echo $row['path'];?></p>
+					<p <?php if(!$row['flag']) echo 'class="text-danger"';?>><?php echo $row['path'];?></p>
 					<?php endforeach;?>
 				</div>
 				<div id="content"></div>

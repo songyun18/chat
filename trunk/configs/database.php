@@ -2,10 +2,10 @@
 return array(
 		'default' => array(
 				'hostname' => 'localhost',
-				'database' => 'blog',
+				'database' => 'chat',
 				'username' => 'root',
 				'password' => '',
-				'tablepre' => 'bg_',
+				'tablepre' => 'ch_',
 				'charset' => 'utf8',
 				'type' => 'mysql',
 				'debug' => true,

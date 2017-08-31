@@ -31,10 +31,12 @@ class userController extends RestController
 	{
 		$this->sessionInit();
 		$data=getPost();
+		/*
 		if($data['validator']!=$_SESSION['validator'])
 			$this->error('验证码错误');
 		if($data['password1']!=$data['password'])
 			$this->error('两次密码输入不一致');
+		*/
 		
 		$model=D('User');
 		$result=$model->add($data);

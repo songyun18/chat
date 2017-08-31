@@ -19,6 +19,7 @@ class menuController extends SystemController
 		$title='dash';
 		$this->assign('title',$title);
 		
+		/*
 		//获得文章总数
 		$article_count=M('article')->count();
 		$this->assign('article_count',$article_count);
@@ -34,6 +35,7 @@ class menuController extends SystemController
 		//获得标签总数
 		$tag_count=M('tag')->count();
 		$this->assign('tag_count',$tag_count);
+		*/
 		
 		$this->display();
 	}

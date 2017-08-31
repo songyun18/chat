@@ -2,7 +2,7 @@
 defined('IN_PHPFRAME') or exit('No permission resources.');
 Base::loadAppClass('RestController');
 
-class UserAction extends RestController
+class UserController extends RestController
 {
 	public function __construct()
 	{
