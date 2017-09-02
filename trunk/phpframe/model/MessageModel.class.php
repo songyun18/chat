@@ -118,10 +118,18 @@ class MessageModel extends Model
 
 		$data1=$result['data'];
 		unset($result['data']);
+		
+		$now=time();
+		$data1['add_time']=$now;
 		$result['flag']=parent::add($data1);
 		if(!$result['flag'])
 			$result['message']='插入记录失败';
-
+		//修改chat表的last_message
+		$data2=array();
+		$data2['last_message']=$data1['message'];
+		$chat_model=D('Chat');
+		$result=$chat_model->update($data1['chat_id'],$data2);
+		
 		return $result;
 	}
 

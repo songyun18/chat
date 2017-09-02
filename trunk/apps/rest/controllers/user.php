@@ -9,7 +9,7 @@ class userController extends RestController
 	{
 		parent::__construct();
 	}
-
+	
 	public function loginAction()
 	{
 		$user_name=getgpc('user_name');
@@ -24,7 +24,7 @@ class userController extends RestController
 		if(!$result['flag'])
 			$this->error($result['message']);
 		else
-			$this->success();
+			$this->success($result['data']);
 	}
 	
 	public function registerAction()
@@ -50,7 +50,7 @@ class userController extends RestController
 			$this->success();
 		}
 	}
-
+	
 	public function logoutAction()
 	{
 		$model=D('User');

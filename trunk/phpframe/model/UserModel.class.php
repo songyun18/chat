@@ -274,8 +274,14 @@ class UserModel extends Model
 		$_SESSION['user_id']=$info['user_id'];
 		$_SESSION['user_name']=$info['user_name'];
 		
+		$default_avatar=ATTMS_URL.'web/images/avatar.jpg';
+		if(!$info['avatar'])
+			$info['avatar']=$default_avatar;
+		
 		$result['data']=array(
-			'user_id'=>$info['user_id']
+			'user_id'=>$info['user_id'],
+			'user_name'=>$info['nickname'],
+			'avatar'=>$info['avatar'],
 		);
 		return $result;
 	}

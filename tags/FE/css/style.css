@@ -70,7 +70,7 @@ p { margin:5px 0 5px 0; }
 /*public share class end*/
 
 /*private share modifiable style start*/
-a { color:white; text-decoration:none; }
+a { color:#D5540A; text-decoration:none; }
 a:hover { color:#D5540A; text-decoration:none; }
 html { font-size:10px; }
 body,input,textarea,button,select { font-family:"Helvetica Neue","Arial","Microsoft YaHei","微软雅黑","宋体"; line-height:1.4em; font-size:14px; color:#333; }
@@ -79,10 +79,10 @@ body.gray_body { background-color:#EBEBEB; }
 
 .red { color:#D5540A; }
 .blue { color:#009ED4; }
-.green { color:#A2E65B; }
+.green { color:#3d9a32; }
 .gray { color:#999999; }
 .black { color:#000; }
-.body {}
+.body { margin:0 10px; }
 /*private share modifiable style end*/
 
 /*private class1 start*/
@@ -175,4 +175,9 @@ input.error { border:1px solid #D5540A; }
 
 .time { text-align:center; margin:15px; }
 	.time span { background-color:#CECECE; color:white; padding:5px; border-radius:5px }
+
+.login_form { margin:20% 10% 0 10%; }
+	.login_form p { margin:10px 0; }
+	.login_form .input_text,.login_form .button { height:40px; border-radius:2px; }
+	.login_form .button { height:40px; }
 /*style end*/

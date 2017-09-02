@@ -57,6 +57,7 @@ class ChatModel extends Model
 		foreach($result['list'] as $key=>$row)
 		{
 			$row['add_time_exp']=date('Y-m-d H:i:s',$row['add_time']);
+			$row['update_time_exp']=date('Y-m-d',$row['update_time']);
 			
 			$default_avatar=ATTMS_URL.'web/images/avatar.jpg';
 			if(!$row['user1_avatar'])
@@ -70,8 +71,8 @@ class ChatModel extends Model
 			
 			$result['list'][$key]=$row;
 		}
-
-		$result['page']=$page->getPageInfo();
+		
+		//$result['page']=$page->getPageInfo();
 		$result['next_page']=$page->getNextPage();
 		return $result;
 	}
@@ -150,6 +151,7 @@ class ChatModel extends Model
 			return $result;
 		}
 
+		$data1['update_time']=time();
 		$result['flag']=$this->where(array(
 			'chat_id'=>$chat_id			
 		))->save($data1);

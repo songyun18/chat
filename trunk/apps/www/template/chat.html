@@ -1,0 +1,40 @@
+	<div class="head">
+		<h1>聊天</h1>
+	</div>
+	<div class="record_body">
+		<dl ng-repeat="row in list" ng-click="goto('message',{'id':row.chat_id})">
+			<dd class="float_left">
+				<img ng-src="{{row.avatar}}" />
+			</dd>
+			<dd class="float_right gray">{{row.update_time_exp}}</dd>
+			<dt>{{row.user_name}}</dt>
+			<dd class="gray">{{row.last_message}}</dd>
+			<dd class="clear"></dd>
+		</dl>
+	</div>
+	<div class="padding_foot"></div>
+	<div class="foot">
+		<ul>
+			<li>
+				<a href="{{ngUrl('chat')}}" class="now">
+					<span class="iconfont icon-weixin"></span>
+				</a>
+			</li>
+			<li>
+				<a href="{{ngUrl('friend')}}">
+					<span class="iconfont icon-wo"></span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<span class="iconfont icon-tongxunlu"></span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<span class="iconfont icon-weixin"></span>
+				</a>
+			</li>
+		</ul>
+		<div class="clear"></div>
+	</div>
