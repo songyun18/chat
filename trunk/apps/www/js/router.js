@@ -23,4 +23,12 @@ var routeArray={
 		'source':null,
 		//'templateUrl':'',
 	},
+	'/mine':{
+		'source':null,
+		//'templateUrl':'',
+	},
+	'/info':{
+		'source':null,
+		//'templateUrl':'',
+	},
 };

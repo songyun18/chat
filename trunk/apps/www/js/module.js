@@ -59,44 +59,46 @@ angular.module('app.module',['ui.router'])
 	
 	return url;
 })
+/*
 .value('CommonValue',{
 	'messageScope':{},	//message页面专用scope
+})
+*/
+.factory('CommonValue',function()
+{
+	return {
+		'get':function(key)
+		{
+			return localStorage.getItem(key);
+		},
+		'set':function(key,value)
+		{
+			 localStorage.setItem(key,value);
+		},
+	};
 })
 //获取用户信息
 .factory('getUserInfo',function($rootScope,CommonValue,HttpService)
 {
-	console.log(CommonValue);
-	var userInfo=CommonValue.userInfo;
+	var userInfo=CommonValue.get('userInfo');
 	if(!userInfo)
 	{
-		userInfo={};
-		//获得本页的地址
-		var url=location.href;
-		url=url.split('#')[1];
-		var back=escape('#'+url);
-		
-		var comefrom=getCookie('car120_comefrom');
-		if(!comefrom)
-			comefrom="customerComplete";
-		//location.href=$rootScope.ngUrl(comefrom,{'back':back});
-		var back=$rootScope.ngUrl(comefrom,{'back':back});
-		var url=$rootScope.pcUrl('index','rootUrl');
-		var param={
-			'back':escape(back),
-		};
+		/*
+		//获取用户信息
+		var url=$rootScope.pcUrl('user','info');
+		var param={};
 		HttpService.post(url,param,function(data)
 		{
-			location.href=data;
+			CommonValue.userInfo=data;
+			return returnFunction;
 		});
-		//return;
+		*/
+		location.href=$rootScope.ngUrl('login');
 	}
 	
 	return function()
 	{
-		if(CommonValue.userInfo)
-			return CommonValue.userInfo;
-		else
-			return {};
+		return userInfo?JSON.parse(userInfo):{}
 	};
 })
 //通用访问对象
@@ -438,6 +440,31 @@ angular.module('app.module',['ui.router'])
 			return function postLink(scope, element, attrs)
 			{
 			};
+		},
+	};
+})
+.directive('foot',function(HttpService,$injector,$window,$rootScope)
+{
+	return {
+		priority: 0,
+		restrict: 'A',
+		templateUrl:'www/template/foot.html',
+		transclude:true,
+		compile: function compile(tElement, tAttrs)
+		{
+			return function postLink(scope, element, attrs)
+			{
+			};
+		},
+		controller:function($scope)
+		{
+			var router=HttpService.getRouter();
+			if(router=='chat')
+				$scope.index=1;
+			else if(router=='friend')
+				$scope.index=2;
+			else if(router=='mine')
+				$scope.index=4;
 		},
 	};
 })

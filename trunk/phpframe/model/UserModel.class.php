@@ -125,6 +125,10 @@ class UserModel extends Model
 		
 		if($info)
 		{
+			$default_avatar=ATTMS_URL.'web/images/avatar.jpg';
+			if(!$info['avatar'])
+				$info['avatar']=$default_avatar;
+			
 			$info['reg_time_exp']=date('Y-m-d H:i:s',$info['reg_time']);
 			$info['last_login_time_exp']=date('Y-m-d H:i:s',$info['last_login_time_exp']);
 			
@@ -218,7 +222,7 @@ class UserModel extends Model
 			$result['user_id错误'];
 			return $result;
 		}
-
+		
 		$result['flag']=$this->where(array(
 			'user_id'=>$user_id			
 		))->save($data1);
@@ -280,7 +284,8 @@ class UserModel extends Model
 		
 		$result['data']=array(
 			'user_id'=>$info['user_id'],
-			'user_name'=>$info['nickname'],
+			'user_name'=>$info['user_name'],
+			'nickname'=>$info['nickname'],
 			'avatar'=>$info['avatar'],
 		);
 		return $result;

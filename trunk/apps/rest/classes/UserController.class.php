@@ -8,6 +8,6 @@ class UserController extends RestController
 	{
 		parent::__construct();
 		if(!$this->userId)
-			$this->error('用户未登录',10);
+			$this->error('用户未登录',-2);
 	}
 }

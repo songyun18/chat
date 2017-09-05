@@ -46,11 +46,12 @@ controller.controller('loginAction',function($scope,HttpService,$rootScope,Commo
 			alert('请输入密码');
 			return false;
 		}
+		
 		var url=$scope.pcUrl('user','login');
 		var param=$scope.form;
 		HttpService.post(url,param,function(data)
 		{
-			CommonValue.userInfo=data;
+			CommonValue.set('userInfo',JSON.stringify(data));
 			location.href=$scope.ngUrl('chat');
 		});
 	};
@@ -121,7 +122,7 @@ controller.controller('loginAction',function($scope,HttpService,$rootScope,Commo
 		$scope.list=data;
 	});
 })
-.controller('messageAction',function($scope,HttpService,$rootScope,CommonValue,$timeout)
+.controller('messageAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo)
 {
 	$rootScope.bodyClass="gray_body";
 	
@@ -160,7 +161,7 @@ controller.controller('loginAction',function($scope,HttpService,$rootScope,Commo
 		'message':''
 	};
 	
-	var userInfo=CommonValue.userInfo;
+	var userInfo=getUserInfo();
 	$scope.submit=function()
 	{
 		var url=$scope.pcUrl('message','add');
@@ -180,6 +181,39 @@ controller.controller('loginAction',function($scope,HttpService,$rootScope,Commo
 				$('body').scrollTop($('body')[0].scrollHeight);
 			},100);
 		});
+	};
+})
+.controller('mineAction',function($scope,HttpService,$rootScope,$timeout,CommonValue)
+{
+	$rootScope.bodyClass="gray_body";
+	
+	//$scope.userInfo=getUserInfo();
+	var url=$scope.pcUrl('user','info');
+	var param={};
+	HttpService.post(url,param,function(data)
+	{
+		CommonValue.set('userInfo',JSON.stringify(data));
+		$scope.userInfo=data;
+	});
+	
+	$scope.logout=function()
+	{
+		var url=$scope.pcUrl('user','logout');
+		var param={};
+		HttpService.post(url,param,function()
+		{
+			location.href=$scope.ngUrl('login');
+		});
+	};
+})
+.controller('infoAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo)
+{
+	$rootScope.bodyClass="gray_body";
+
+	$scope.userInfo=getUserInfo();
+	$scope.callback=function()
+	{
+		location.href=$scope.ngUrl('mine');
 	};
 })
 ;

@@ -3,71 +3,55 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-	<title>通讯录</title>
+	<title>我</title>
 	<link href="css/style.css" rel="stylesheet" type="text/css" />
 	<link href="css/font.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/underscore-min.js"></script>
 	<script type="text/javascript" src="js/init.js"></script>
 </head>
-<body>
+<body class="gray_body">
 	<div class="head">
-		<h1>通讯录</h1>
+		<h1>个人资料</h1>
 	</div>
 	<div class="padding_head"></div>
-	<div class="book_body">
-		<ul>
-			<li>
-				<img src="images/avatar.jpg" />
-				你的名字
-			</li>
-			<li>
-				<img src="images/avatar.jpg" />
-				你的名字
-			</li>
-			<li>
-				<img src="images/avatar.jpg" />
-				你的名字
-			</li>
-			<li>
-				<img src="images/avatar.jpg" />
-				你的名字
-			</li>
-			<li>
-				<img src="images/avatar.jpg" />
-				你的名字
-			</li>
-			<li>
-				<img src="images/avatar.jpg" />
-				你的名字
-			</li>
-		</ul>
-		<dl>
-			<dd class="float_left"></dd>
-			<dt></dt>
-		</dl>
+	<div class="info_list">
+		<table>
+			<tr>
+				<th>头像</th>
+				<td><img src="images/avatar.jpg" /></td>
+			</tr>
+			<tr class="spec">
+				<th>昵称</th>
+				<td><input name="" class="input_text full_width" value="songyun" /></td>
+			</tr>
+		</table>
+		<div class="height_10"></div>
+		<div class="padding_10">
+			<button class="button green full_width radius mine">确认</button>
+		</div>
 	</div>
 	<div class="padding_foot"></div>
 	<div class="foot">
 		<ul>
 			<li>
-				<a href="index.html">
-					<span class="iconfont icon-weixin"></span>
+				<a href="index.html" class="now">
+					<span class="iconfont icon-weixin"></span><br />聊天
 				</a>
 			</li>
 			<li>
-				<a href="book.html" class="now">
-					<span class="iconfont icon-wo"></span>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<span class="iconfont icon-tongxunlu"></span>
+				<a href="book.html">
+					<span class="iconfont icon-tongxunlu"></span><br />朋友
 				</a>
 			</li>
 			<li>
 				<a href="#">
-					<span class="iconfont icon-weixin"></span>
+					<span class="iconfont icon-faxian spec"></span><br />发现
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<span class="iconfont icon-wo"></span><br />我
 				</a>
 			</li>
 		</ul>

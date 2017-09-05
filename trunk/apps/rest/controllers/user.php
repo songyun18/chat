@@ -57,4 +57,34 @@ class userController extends RestController
 		$model->logout();
 		$this->success();
 	}
+
+	public function infoAction()
+	{
+		$this->checkLogin();
+		$user_id=$this->userId;
+		$model=D('User');
+		$temp=$model->getInfo($user_id);
+		$user_info=array();
+		$user_info['user_id']=$temp['user_id'];
+		$user_info['user_name']=$temp['user_name'];
+		$user_info['nickname']=$temp['nickname'];
+		$user_info['avatar']=$temp['avatar'];
+		
+		$this->success($user_info);
+	}
+
+	public function saveInfoAction()
+	{
+		$this->checkLogin();
+		$user_id=$this->userId;
+		
+		$this->upload();
+		$data=getPost();
+		$user_model=D('User');
+		$result=$user_model->update($user_id,$data);
+		if(!$result['flag'])
+			$this->error($result['message']);
+		else
+			$this->success();
+	}
 }
