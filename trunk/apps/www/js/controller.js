@@ -92,17 +92,39 @@ controller.controller('loginAction',function($scope,HttpService,$rootScope,Commo
 		});
 	};
 })
-.controller('chatAction',function($scope,HttpService,$rootScope)
+.controller('chatAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo)
 {
 	$rootScope.bodyClass="";
+	
 	var url=$scope.pcUrl('chat','index');
 	var param={};
 	HttpService.post(url,param,function(data)
 	{
 		$scope.list=data;
 	});
+	
+	$scope.go=function(router,query)
+	{
+		var url=$scope.pcUrl('chat','userInfo');
+		var param={};
+		param.chat_id=query.id;
+		
+		HttpService.post(url,param,function(data)
+		{
+			CommonValue.set('chatInfo',JSON.stringify(data));
+			
+			//加入房间
+			var userInfo=getUserInfo();
+			var data={};
+			data.user_id=userInfo.user_id;
+			data.chat_id=query.id;
+			socket.join(data);
+			
+			location.href=$scope.ngUrl(router,query);
+		});
+	};
 })
-.controller('friendAction',function($scope,HttpService,$rootScope)
+.controller('friendAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo)
 {
 	$rootScope.bodyClass="";
 	$scope.chat=function(userId)
@@ -110,9 +132,18 @@ controller.controller('loginAction',function($scope,HttpService,$rootScope,Commo
 		var url=$scope.pcUrl('chat','check');
 		var param={};
 		param.user_id=userId;
-		HttpService.post(url,param,function(chatId)
+		HttpService.post(url,param,function(data)
 		{
-			location.href=$scope.ngUrl('message',{'id':chatId});
+			//缓存对手信息
+			CommonValue.set('chatInfo',JSON.stringify(data.user_info));
+			//加入房间
+			var userInfo=getUserInfo();
+			var data1={};
+			data1.user_id=userInfo.user_id;
+			data1.chat_id=data1.chat_id;
+			socket.join(data1);
+			
+			location.href=$scope.ngUrl('message',{'id':data.chat_id});
 		});
 	};
 	var url=$scope.pcUrl('friend','index');
@@ -122,12 +153,44 @@ controller.controller('loginAction',function($scope,HttpService,$rootScope,Commo
 		$scope.list=data;
 	});
 })
-.controller('messageAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo)
+.controller('messageAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo,getChatInfo,socket)
 {
 	$rootScope.bodyClass="gray_body";
 	
 	var query=HttpService.getQuery();
 	var chatId=query.id;
+	
+	var userInfo=getUserInfo();
+	var chatInfo=getChatInfo();
+	$scope.$on('$locationChangeSuccess',function()
+	{
+		var data={};
+		data.user_id=userInfo.user_id;
+		data.chat_id=chatId;
+		socket.leave(data);
+	});
+	
+	socket.io.off('message').on('message',function(message)
+	{
+		console.log('有消息进入');
+		
+		var data={};
+		data.avatar=chatInfo.avatar;
+		data.message=message;
+		data.is_me=false;
+		$scope.list.push(data);
+		
+		gotoBottom();
+		$scope.$apply();
+	});
+
+	function gotoBottom()
+	{
+		$timeout(function()
+		{
+			$('body').scrollTop($('body')[0].scrollHeight);
+		},100);
+	}
 	
 	$scope.list=[];
 	$scope.loadMore=function()
@@ -148,10 +211,7 @@ controller.controller('loginAction',function($scope,HttpService,$rootScope,Commo
 			$scope.nextPage=data.next_page;
 			if(page==1)
 			{
-				$timeout(function()
-				{
-					$('body').scrollTop($('body')[0].scrollHeight);
-				},100);
+				gotoBottom();
 			}
 		});
 	};
@@ -161,7 +221,6 @@ controller.controller('loginAction',function($scope,HttpService,$rootScope,Commo
 		'message':''
 	};
 	
-	var userInfo=getUserInfo();
 	$scope.submit=function()
 	{
 		var url=$scope.pcUrl('message','add');
@@ -174,12 +233,16 @@ controller.controller('loginAction',function($scope,HttpService,$rootScope,Commo
 			data.message=$scope.form.message;
 			data.is_me=true;
 			$scope.list.push(data);
+
+			//发送及时消息
+			var data1={};
+			data1.user_id=userInfo.user_id;
+			data1.chat_id=chatId;
+			data1.message=data.message;
+			socket.send(data1);
 			
 			$scope.form.message="";
-			$timeout(function()
-			{
-				$('body').scrollTop($('body')[0].scrollHeight);
-			},100);
+			gotoBottom();
 		});
 	};
 })

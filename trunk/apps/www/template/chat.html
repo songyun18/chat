@@ -3,7 +3,7 @@
 	</div>
 	<div class="padding_head"></div>
 	<div class="record_body">
-		<dl ng-repeat="row in list" ng-click="goto('message',{'id':row.chat_id})">
+		<dl ng-repeat="row in list" ng-click="go('message',{'id':row.chat_id})">
 			<dd class="float_left">
 				<img ng-src="{{row.avatar}}" />
 			</dd>

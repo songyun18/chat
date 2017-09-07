@@ -2,7 +2,7 @@ angular.module('app.module',['ui.router'])
 //.constant('hostUrl','http://yxic.chengpai.net.cn/car120/bms/webapp/rest/index.php')
 //.constant('hostUrl','http://192.168.1.55/bms/webapp/rest/index.php')
 .constant('hostUrl','http://chat.test.com/rest/index.php')
-.constant('nodejsUrl','http://192.168.1.50:8080')
+.constant('nodejsUrl','http://192.168.1.45:8080')
 //全局变量
 
 .factory('pcUrl',function(hostUrl)
@@ -75,6 +75,22 @@ angular.module('app.module',['ui.router'])
 		{
 			 localStorage.setItem(key,value);
 		},
+	};
+})
+//获取聊天对手信息
+.factory('getChatInfo',function($rootScope,CommonValue,HttpService)
+{
+	var chatInfo=CommonValue.get('chatInfo');
+	if(!chatInfo)
+	{
+		chatInfo={};
+	}
+	else
+		chatInfo=JSON.parse(chatInfo);
+	
+	return function()
+	{
+		return chatInfo;
 	};
 })
 //获取用户信息
@@ -266,6 +282,47 @@ angular.module('app.module',['ui.router'])
 				});
 			}
 		}
+	};
+})
+.service('socket',function(HttpService,nodejsUrl,$rootScope)
+{
+	this.io=null;
+	var _this=this;
+	
+	var url=nodejsUrl+'/socket.io/socket.io.js';
+	HttpService.loadScript(url,function()
+	{
+		_this.io=window.io(nodejsUrl);
+		
+		/*
+		//接收信息
+		_this.io.on('message',function(message)
+		{
+			console.log('有消息进入');
+		});
+		*/
+	});
+	
+	//data.user_id
+	//data.chat_id
+	this.join=function(data)
+	{
+		this.io.emit('join',data);
+	};
+	
+	//data.user_id
+	//data.chat_id
+	this.leave=function(data)
+	{
+		this.io.emit('leave',data);
+	}
+	
+	//data.user_id
+	//data.chat_id
+	//data.message
+	this.send=function(data)
+	{
+		this.io.emit('message',data);
 	};
 })
 .directive('form',function(HttpService,$injector,$window,$rootScope)

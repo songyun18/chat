@@ -78,6 +78,47 @@ class chatController extends UserController
 		else
 			$chat_id=$info['chat_id'];
 		
-		$this->success($chat_id);
+		//获取对手信息
+		$user_info=$this->_getUserInfo($chat_id);
+		$result=array();
+		$result['chat_id']=$chat_id;
+		$result['user_info']=$user_info;
+		
+		$this->success($result);
+	}
+	
+	//获取对手的信息
+	public function userInfoAction()
+	{
+		$chat_id=getgpc('chat_id');
+		if(!$chat_id)
+			$this->error('参数错误');
+		
+		$user_info=$this->_getUserInfo($chat_id);
+		$this->success($user_info);
+	}
+	
+	//获取对手信息
+	private function _getUserInfo($chat_id)
+	{
+		$user_id=$this->userId;
+		//获取聊天对手的信息
+		$chat_model=D('Chat');
+		$chat_info=$chat_model->getInfo($chat_id);
+		if($chat_info['user1_id']==$user_id)
+			$user_id=$chat_info['user2_id'];
+		else
+			$user_id=$chat_info['user1_id'];
+		
+		$user_model=D('User');
+		$temp=$user_model->getInfo($user_id);
+		
+		$user_info=array();
+		$user_info['user_id']=$temp['user_id'];
+		$user_info['user_name']=$temp['user_name'];
+		$user_info['nickname']=$temp['nickname'];
+		$user_info['avatar']=$temp['avatar'];
+		
+		return $user_info;
 	}
 }
