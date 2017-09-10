@@ -1,0 +1,30 @@
+<ion-view ng-class="bodyClass" hide-back-button="true" data-title="聊天">
+	<div class="head">
+		<a href="javascript:history.back();" class="left">微信</a>
+		<h1>聊天</h1>
+	</div>
+	<ion-content>
+	<div class="padding_head"></div>
+	<div class="chat_body">
+		<div class="more text_align_center padding_10" ng-show="nextPage">
+			<a href="javascript:;" ng-click="loadMore()" class="green">加载更多</a>
+		</div>
+		<dl ng-class="row.is_me?'right':'left'" ng-repeat="row in list">
+			<dt><img ng-src="{{row.avatar}}" /></dt>
+			<dd>{{row.message}}</dd>
+		</dl>
+		<!--
+		<div class="time">
+			<span>15:44</span>
+		</div>
+		-->
+	</div>
+	<div class="padding_foot"></div>
+	</ion-content>
+	<div class="chat_foot">
+		<form ng-submit="submit()">
+			<input class="input_text" ng-model="form.message" />
+			<button class="button green">发送</button>
+		</form>
+	</div>
+</ion-view>
