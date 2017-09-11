@@ -171,6 +171,12 @@ ion-nav-bar.bar { background-color:#313036; width:100%; }
 	.foot li a.now  { color:#2CA146; }
 		.foot li a span  { font-size:35px; }
 		.foot li a span.spec  { font-size:30px; }
+		
+.tabs { background-color:white; border-top:1px solid #BBBBBB !important; height:auto; border-left:none; }
+.tabs-icon-top>.tabs .tab-item { display:block; width:100%; color:#BBBBBB; text-align:center; padding:10px 0 5px 0; font-size:12px; line-height:1.8em;  }
+		.tabs .tab-item .icon { height:auto; }
+		.tabs .tab-item .icon.iconfont.spec { font-size:30px; }
+	.tabs .tab-item.tab-item-active { color:#2CA146; }
 
 .thumb { width:50px; border-radius:5px; }
 

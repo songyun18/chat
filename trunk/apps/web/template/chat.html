@@ -1,7 +1,7 @@
 <ion-view ng-class="bodyClass" data-title="聊天列表">
 	<ion-content>
 	<div class="record_body">
-		<dl ng-repeat="row in list" ng-click="go('message',{'id':row.chat_id})">
+		<dl ng-repeat="row in list" ng-click="go('tabs.message',{'chatId':row.chat_id})">
 			<dd class="float_left">
 				<img ng-src="{{row.avatar}}" />
 			</dd>
@@ -12,5 +12,4 @@
 		</dl>
 	</div>
 	</ion-content>
-	<div class="foot" foot></div>
 </ion-view>

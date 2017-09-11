@@ -26,7 +26,7 @@ for(var router in routeArray)
 	controller.controller(controllerName,function(){});
 }
 
-controller.controller('loginAction',function($scope,$rootScope,HttpService,CommonValue)
+controller.controller('loginAction',function($scope,$rootScope,HttpService,CommonValue,$state)
 {
 	$rootScope.bodyClass="gray_body";
 	$scope.form={
@@ -52,11 +52,11 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		HttpService.post(url,param,function(data)
 		{
 			CommonValue.set('userInfo',JSON.stringify(data));
-			location.href=$scope.ngUrl('chat');
+			$state.go('tabs.chat');
 		});
 	};
 })
-.controller('registerAction',function($scope,HttpService,$rootScope)
+.controller('registerAction',function($scope,HttpService,$rootScope,$state)
 {
 	$rootScope.bodyClass="gray_body";
 	$scope.form={
@@ -87,11 +87,11 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		var param=$scope.form;
 		HttpService.post(url,param,function(data)
 		{
-			location.href=$scope.ngUrl('login');
+			$state.go('login');
 		});
 	};
 })
-.controller('chatAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo)
+.controller('chatAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo,$state)
 {
 	$rootScope.bodyClass="";
 	
@@ -106,7 +106,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 	{
 		var url=$scope.pcUrl('chat','userInfo');
 		var param={};
-		param.chat_id=query.id;
+		param.chat_id=query.chatId;
 		
 		HttpService.post(url,param,function(data)
 		{
@@ -119,11 +119,11 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 			data.chat_id=query.id;
 			socket.join(data);
 			
-			location.href=$scope.ngUrl(router,query);
+			$state.go(router,query);
 		});
 	};
 })
-.controller('friendAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo)
+.controller('friendAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo,$state)
 {
 	$rootScope.bodyClass="";
 	$scope.chat=function(userId)
@@ -142,7 +142,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 			data1.chat_id=data1.chat_id;
 			socket.join(data1);
 			
-			location.href=$scope.ngUrl('message',{'id':data.chat_id});
+			$state.go('tabs.message',{'chatId':data.chat_id},{'location':'replace'});
 		});
 	};
 	var url=$scope.pcUrl('friend','index');
@@ -152,21 +152,23 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		$scope.list=data;
 	});
 })
-.controller('messageAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo,getChatInfo,socket)
+.controller('messageAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo,getChatInfo,socket,$stateParams,$ionicScrollDelegate)
 {
 	$rootScope.bodyClass="gray_body";
+	$rootScope.hideTabs=true;
 	
-	var query=HttpService.getQuery();
-	var chatId=query.id;
+	var chatId=$stateParams.chatId;
 	
 	var userInfo=getUserInfo();
 	var chatInfo=getChatInfo();
-	$scope.$on('$locationChangeSuccess',function()
+	$scope.$on('$destroy',function()
 	{
 		var data={};
 		data.user_id=userInfo.user_id;
 		data.chat_id=chatId;
 		socket.leave(data);
+		
+		$rootScope.hideTabs=false;
 	});
 	
 	socket.io.off('message').on('message',function(message)
@@ -187,7 +189,8 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 	{
 		$timeout(function()
 		{
-			$('body').scrollTop($('body')[0].scrollHeight);
+			//$('body').scrollTop($('body')[0].scrollHeight);
+			$ionicScrollDelegate.scrollBottom();
 		},100);
 	}
 	
@@ -195,6 +198,12 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 	$scope.loadMore=function()
 	{
 		var page;
+		if($scope.nextPage===null)
+		{
+			$scope.$broadcast('scroll.refreshComplete');
+			return false;
+		}
+		
 		if(!$scope.nextPage)
 			page=1;
 		else
@@ -208,6 +217,8 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		{
 			$scope.list=data.list.concat($scope.list);
 			$scope.nextPage=data.next_page;
+			$scope.$broadcast('scroll.refreshComplete');
+			
 			if(page==1)
 			{
 				gotoBottom();

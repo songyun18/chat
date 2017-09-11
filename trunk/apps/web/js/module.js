@@ -38,8 +38,21 @@ angular.module('app.module',['ui.router'])
 })
 .value('ngUrl',function(c,params)
 {
-	var url='#/'+c;
+	var url='';
+	if(c.indexOf('.')!=-1)
+		url='#/'+c.replace('.','/');
+	else
+		url='#/'+c;
 	var query='';
+	if(params!=undefined)
+	{
+		for(var i in params)
+		{
+			url+=params[i]+'/';
+		}
+		url=url.substr(0,url.length-1);
+	}
+	/*
 	if(params!=undefined)
 	{
 		for(var i in params)
@@ -52,6 +65,7 @@ angular.module('app.module',['ui.router'])
 		query=query.substr(0,query.length-1);
 	}
 	url+=(query!='')?'?'+query:'';
+	*/
 	
 	return url;
 })

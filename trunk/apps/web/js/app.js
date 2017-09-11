@@ -25,56 +25,43 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($stat
 {
 	var defaultUrl=null;
 	var rootState='root';
-	/*
-	$stateProvider.state(rootState,{
-		//'template':'<ui-view />',
-		'template':'<ion-nav-view />',
-		'abstract':true,
-		'controller':'rootAction',
-		'resolve':{
-			'data':function($http,$q,$location,HttpService)
-			{
-				var router=$location.path();
-				if(routeArray[router].source===null) return {};
-				else 
-				{
-					if(routeArray[router].source===undefined)
-					{
-						$promise=$q(function(ok,error)
-						{
-							HttpService.get(ok);
-						});
-					}
-					else
-					{
-						var url=routeArray[router].source;
-						$promise=$q(function(ok,error)
-						{
-							HttpService.get(url,ok);
-						});
-					}
-					return $promise;
-				}
-			}
-		},
-	});
-	*/
 	for(var router in routeArray)
 	{
 		var row=routeArray[router];
-		var stateObj={
-			'url':!row.url?router:row.url
-		};
+		var stateObj={};
+		
 		var stateName=row.stateName;
-		
-		//模板初始化
-		if(!row.templateUrl)
-			stateObj.templateUrl='./template'+router+'.html';
+		//子页面
+		if(stateName.indexOf('.')!=-1)
+		{
+			var realName=stateName.split('.').pop();
+			var templateUrl='./template/'+realName+'.html';
+			var controller=realName+'Action';
+
+			var viewName=stateName.replace('.','-');
+			
+			if(row.parentState)
+				viewName=row.parentState.replace('.','-');
+			
+			stateObj.url=!row.url?('/'+realName):row.url;
+			stateObj.views={};
+			stateObj.views[viewName]={};
+			stateObj.views[viewName]['templateUrl']=templateUrl;
+			stateObj.views[viewName]['controller']=controller;
+		}
 		else
-			stateObj.templateUrl='./template/'+row.templateUrl;
+		{
+			stateObj.url=!row.url?('/'+router):row.url;
+			if(!row.templateUrl)
+				stateObj.templateUrl='./template/'+router+'.html';
+			else
+				stateObj.templateUrl='./template/'+row.templateUrl;
+			if(row.abstract)
+				stateObj.abstract=true;
+			else
+				stateObj.controller=stateName+'Action';
+		}
 		
-		stateObj.controller=stateName+'Action';
-		//stateName=rootState+'.'+stateName;
 		$stateProvider.state(stateName,stateObj);
 		if(!defaultUrl || row.isDefault)
 			defaultUrl=router;
@@ -87,6 +74,9 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($stat
 	$rootScope.pcUrl=pcUrl;
 	$rootScope.ngUrl=ngUrl;
 	$rootScope.ajaxing=false;
+	$rootScope.bodyClass='';
+	$rootScope.hideTabs=false;
+	
 	$rootScope.goto=function(router,param)
 	{
 		location.href=ngUrl(router,param);

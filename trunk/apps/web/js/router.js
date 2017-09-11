@@ -2,35 +2,37 @@
 //url			本地路由的详细url地址，默认不填
 //templateUrl	模板地址,默认计算
 var routeArray={
-	'/login':{
+	'login':{
 		'source':null,
 		//'templateUrl':'',
 	},
-	'/register':{
+	'register':{
 		'source':null,
 		//'templateUrl':'',
 	},
-	'/tabs':{
+	'tabs':{
 		'source':null,
+		'abstract':true,
 	},
-	'/chat':{
+	'tabs.chat':{
 		'source':null,
 		//'templateUrl':'',
 	},
-	'/friend':{
+	'tabs.friend':{
 		'source':null,
 		//'templateUrl':'',
 	},
-	'/message':{
+	'tabs.message':{
+		'url':'/message/:chatId',
+		'source':null,
+		'parentState':'tabs.chat',
+	},
+	'tabs.mine':{
 		'source':null,
 		//'templateUrl':'',
 	},
-	'/mine':{
+	'tabs.info':{
 		'source':null,
-		//'templateUrl':'',
-	},
-	'/info':{
-		'source':null,
-		//'templateUrl':'',
+		'parentState':'tabs.mine',
 	},
 };
