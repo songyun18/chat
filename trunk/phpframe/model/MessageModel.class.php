@@ -6,7 +6,7 @@ class MessageModel extends Model
 	public function __construct($table_name='',$table_pre='')
 	{
 		parent::__construct($table_name,$table_pre);
-
+		
 		$fields=array(
 			'chat_id'=>array(
 				'required'=>true,

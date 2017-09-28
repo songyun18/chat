@@ -109,40 +109,29 @@ angular.module('app.module',['ui.router'])
 //获取聊天对手信息
 .factory('getChatInfo',function($rootScope,CommonValue,HttpService)
 {
-	var chatInfo=CommonValue.get('chatInfo');
-	if(!chatInfo)
-	{
-		chatInfo={};
-	}
-	else
-		chatInfo=JSON.parse(chatInfo);
-	
 	return function()
 	{
+		var chatInfo=CommonValue.get('chatInfo');
+		if(!chatInfo)
+		{
+			chatInfo={};
+		}
+		else
+			chatInfo=JSON.parse(chatInfo);
 		return chatInfo;
 	};
 })
 //获取用户信息
-.factory('getUserInfo',function($rootScope,CommonValue,HttpService)
+.factory('getUserInfo',function($rootScope,CommonValue,HttpService,$state)
 {
 	var userInfo=CommonValue.get('userInfo');
+	console.log(userInfo);
 	if(!userInfo)
-	{
-		/*
-		//获取用户信息
-		var url=$rootScope.pcUrl('user','info');
-		var param={};
-		HttpService.post(url,param,function(data)
-		{
-			CommonValue.userInfo=data;
-			return returnFunction;
-		});
-		*/
-		location.href=$rootScope.ngUrl('login');
-	}
+		$state.go('login');
 	
 	return function()
 	{
+		userInfo=CommonValue.get('userInfo');
 		return userInfo?JSON.parse(userInfo):{}
 	};
 })
@@ -204,7 +193,7 @@ angular.module('app.module',['ui.router'])
 	};
 })
 //http访问对象
-.factory('HttpService',function($http,$location,$state,CommonService,CommonValue,pcUrl,$window,hostUrl,$ionicLoading)
+.factory('HttpService',function($http,$location,$state,CommonService,CommonValue,pcUrl,$window,hostUrl,$ionicLoading,$state)
 {
 	return {
 		'getPcUrl':function()
@@ -276,7 +265,23 @@ angular.module('app.module',['ui.router'])
 			else url=urls;
 			
 			var param='';
-			param=JSON.stringify(params);
+			if(typeof params =='object')
+			{
+				for(var i in params)
+				{
+					if(typeof params[i] == 'object')
+					{
+						for(var j in params[i])
+						{
+							param+=i+"["+j+"]="+params[i][j]+'&';
+						}
+					}
+					else
+						param+=i+"="+params[i]+'&';
+				}
+				param=param.substr(0,param.length-1);
+			}
+			//param=JSON.stringify(params);
 			
 			if(!this.noAjaxIcon)
 				$ionicLoading.show();
@@ -295,7 +300,8 @@ angular.module('app.module',['ui.router'])
 					//CommonService.alert(data.message);
 					if(data.code==-2)
 					{
-						location.href=$rootScope.ngUrl('login');
+						//location.href=$rootScope.ngUrl('login');
+						$state.go('login');
 						return false;
 					}
 					if(errorBack)
@@ -603,7 +609,7 @@ angular.module('app.module',['ui.router'])
 	return {
 		priority: 0,
 		restrict: 'A',
-		templateUrl:'template/foot.html',
+		templateUrl:'web/template/foot.html',
 		transclude:true,
 		compile: function compile(tElement, tAttrs)
 		{
@@ -613,13 +619,6 @@ angular.module('app.module',['ui.router'])
 		},
 		controller:function($scope)
 		{
-			var router=HttpService.getRouter();
-			if(router=='chat')
-				$scope.index=1;
-			else if(router=='friend')
-				$scope.index=2;
-			else if(router=='mine')
-				$scope.index=4;
 		},
 	};
 })

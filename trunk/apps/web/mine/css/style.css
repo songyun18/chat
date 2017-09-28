@@ -75,7 +75,6 @@ a:hover { color:#D5540A; text-decoration:none; }
 html { font-size:10px; }
 body,input,textarea,button,select { font-family:"Helvetica Neue","Arial","Microsoft YaHei","微软雅黑","宋体"; line-height:1.4em; font-size:14px; color:#333; }
 body { background-color:white; -webkit-font-smoothing:antialiased; }
-ion-view.gray_body { background-color:#EBEBEB; }
 
 .red { color:#D5540A; }
 .blue { color:#009ED4; }
@@ -105,7 +104,7 @@ ion-view.gray_body { background-color:#EBEBEB; }
 .clips_before:before,.clips_after:after { content:'';display:inline-block; background-image:url(../images/clips_bg.png); vertical-align:middle; }
 input.error { border:1px solid #D5540A; }
 
-.row { width:100%; }
+.row { /*width:100%;*/ }
 .col_1 { float:left; width:8.2%; }
 .col_2 { float:left; width:16.6%; }
 .col_3 { float:left; width:25%; }
@@ -129,8 +128,6 @@ input.error { border:1px solid #D5540A; }
 /*private class1 end*/
 
 /*style start*/
-ion-nav-bar.bar { background-color:#313036; width:100%; }
-	ion-nav-bar.bar h1 { color:white; text-align:center; font-size:18px; line-height:40px; }
 .head { background-color:#313036; width:100%; position:fixed; top:0; height:40px; z-index:10; }
 	.head h1 { color:white; text-align:center; font-size:18px; line-height:40px; }
 	.head a { position:absolute; width:4em; height:40px; line-height:40px; color:white; }
@@ -217,8 +214,23 @@ ion-nav-bar.bar { background-color:#313036; width:100%; }
 			.info_list table td img { width:50px; border-radius:5px; }
 			.info_list table td .input_text { border:none; text-align:right; }
 
+/*
 .mask { background-color:rgba(0,0,0,0.6); position:fixed; top:0; left:0; bottom:0; right:0; }
 .mask.opacity { background-color:transparent; }
 .loading { position:absolute; z-index:1000; top:50%; margin-top:-15px; width:100%; text-align:center; }
 .loading img { width:30px; }
+*/
 /*style end*/
+
+/*fix ionic start*/
+ion-view.gray_body { background-color:#EBEBEB; }
+/*
+ion-nav-bar.bar { background-color:#313036; width:100%; }
+	ion-nav-bar.bar h1 { color:white; text-align:center; font-size:18px; line-height:40px; }
+	*/
+ion-header-bar.bar { background-color:#313036; width:100%; }
+	ion-header-bar.bar .title { color:white; text-align:center; font-size:18px; line-height:40px; }
+	ion-header-bar.bar .button { background-color:transparent; color:white; }
+	ion-header-bar.bar .button .icon { }
+.popup-buttons .button { width:100%; }
+/*fix ionic end*/

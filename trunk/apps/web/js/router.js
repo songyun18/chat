@@ -10,29 +10,23 @@ var routeArray={
 		'source':null,
 		//'templateUrl':'',
 	},
-	'tabs':{
-		'source':null,
-		'abstract':true,
-	},
-	'tabs.chat':{
+	'chat':{
 		'source':null,
 		//'templateUrl':'',
 	},
-	'tabs.friend':{
+	'friend':{
 		'source':null,
 		//'templateUrl':'',
 	},
-	'tabs.message':{
+	'message':{
 		'url':'/message/:chatId',
 		'source':null,
-		'parentState':'tabs.chat',
 	},
-	'tabs.mine':{
+	'mine':{
 		'source':null,
 		//'templateUrl':'',
 	},
-	'tabs.info':{
+	'info':{
 		'source':null,
-		'parentState':'tabs.mine',
 	},
 };

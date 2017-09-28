@@ -35,7 +35,7 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($stat
 		if(stateName.indexOf('.')!=-1)
 		{
 			var realName=stateName.split('.').pop();
-			var templateUrl='./template/'+realName+'.html';
+			var templateUrl='./web/template/'+realName+'.html';
 			var controller=realName+'Action';
 
 			var viewName=stateName.replace('.','-');
@@ -53,21 +53,23 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($stat
 		{
 			stateObj.url=!row.url?('/'+router):row.url;
 			if(!row.templateUrl)
-				stateObj.templateUrl='./template/'+router+'.html';
+				stateObj.templateUrl='./web/template/'+router+'.html';
 			else
-				stateObj.templateUrl='./template/'+row.templateUrl;
+				stateObj.templateUrl='./web/template/'+row.templateUrl;
 			if(row.abstract)
 				stateObj.abstract=true;
 			else
 				stateObj.controller=stateName+'Action';
 		}
+		stateObj.cache=false;
 		
 		$stateProvider.state(stateName,stateObj);
 		if(!defaultUrl || row.isDefault)
 			defaultUrl=router;
 	}
 	$urlRouterProvider.otherwise(defaultUrl);
-	$httpProvider.defaults.headers.post['Content-Type']='application/json';
+	//$httpProvider.defaults.headers.post['Content-Type']='application/json';
+	$httpProvider.defaults.headers.post['Content-Type']='application/x-www-form-urlencoded';
 }])
 .run(function($rootScope,pcUrl,ngUrl,$location,CommonService)
 {

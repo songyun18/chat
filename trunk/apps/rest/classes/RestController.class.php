@@ -10,7 +10,7 @@ class RestController extends Controller
 	
 	public function __construct()
 	{
-		$this->_init();
+		//$this->_init();
 		$this->sessionInit();
 		if (!empty($_SESSION['user_id']))
 		{

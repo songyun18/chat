@@ -1,8 +1,8 @@
-<ion-view ng-class="bodyClass" hide-back-button="false" data-title="我">
+<ion-view ng-class="bodyClass" hide-back-button="true" data-title="我">
 	<ion-content>
 	<div class="click_list">
 		<div class="height_10"></div>
-		<dl ng-click="goto('tabs.info')">
+		<dl ng-click="goto('info')">
 			<dd class="float_left"><img ng-src="{{userInfo.avatar}}" /></dd>
 			<dt>{{userInfo.nickname}}</dt>
 			<dd>账户:{{userInfo.user_name}}</dd>
@@ -18,4 +18,5 @@
 		</div>
 	</div>
 	</ion-content>
+	<div class="foot" foot></div>
 </ion-view>

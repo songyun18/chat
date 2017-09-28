@@ -33,7 +33,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		'user_name':'',
 		'password':'',
 	};
-
+	
 	$scope.submit=function()
 	{
 		if($scope.form.user_name=='')
@@ -52,7 +52,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		HttpService.post(url,param,function(data)
 		{
 			CommonValue.set('userInfo',JSON.stringify(data));
-			$state.go('tabs.chat');
+			$state.go('chat');
 		});
 	};
 })
@@ -91,9 +91,10 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		});
 	};
 })
-.controller('chatAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo,$state)
+.controller('chatAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo,$state,$injector)
 {
 	$rootScope.bodyClass="";
+	$scope.index=1;
 	
 	var url=$scope.pcUrl('chat','index');
 	var param={};
@@ -116,7 +117,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 			var userInfo=getUserInfo();
 			var data={};
 			data.user_id=userInfo.user_id;
-			data.chat_id=query.id;
+			data.chat_id=query.chatId;
 			socket.join(data);
 			
 			$state.go(router,query);
@@ -126,6 +127,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 .controller('friendAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo,$state)
 {
 	$rootScope.bodyClass="";
+	$scope.index=2;
 	$scope.chat=function(userId)
 	{
 		var url=$scope.pcUrl('chat','check');
@@ -139,10 +141,10 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 			var userInfo=getUserInfo();
 			var data1={};
 			data1.user_id=userInfo.user_id;
-			data1.chat_id=data1.chat_id;
+			data1.chat_id=data.chat_id;
 			socket.join(data1);
 			
-			$state.go('tabs.message',{'chatId':data.chat_id},{'location':'replace'});
+			$state.go('message',{'chatId':data.chat_id},{'location':'replace'});
 		});
 	};
 	var url=$scope.pcUrl('friend','index');
@@ -170,8 +172,8 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		
 		$rootScope.hideTabs=false;
 	});
-	
-	socket.io.off('message').on('message',function(message)
+	console.log(socket.io);
+	socket.io.on('message',function(message)
 	{
 		console.log('有消息进入');
 		
@@ -215,9 +217,9 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		
 		HttpService.post(url+'&p='+page,param,function(data)
 		{
+			$scope.$broadcast('scroll.refreshComplete');
 			$scope.list=data.list.concat($scope.list);
 			$scope.nextPage=data.next_page;
-			$scope.$broadcast('scroll.refreshComplete');
 			
 			if(page==1)
 			{
@@ -257,9 +259,10 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 	};
 })
 
-.controller('mineAction',function($scope,HttpService,$rootScope,$timeout,CommonValue)
+.controller('mineAction',function($scope,HttpService,$rootScope,$timeout,CommonValue,$state)
 {
 	$rootScope.bodyClass="gray_body";
+	$scope.index=4;
 	
 	//$scope.userInfo=getUserInfo();
 	var url=$scope.pcUrl('user','info');
@@ -276,18 +279,21 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		var param={};
 		HttpService.post(url,param,function()
 		{
-			location.href=$scope.ngUrl('login');
+			$state.go('login');
+			//location.href=$scope.ngUrl('login');
 		});
 	};
 })
-.controller('infoAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo)
+.controller('infoAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo,$state)
 {
 	$rootScope.bodyClass="gray_body";
 
 	$scope.userInfo=getUserInfo();
+	console.log($scope.userInfo);
 	$scope.callback=function()
 	{
-		location.href=$scope.ngUrl('mine');
+		$state.go('mine');
+		//location.href=$scope.ngUrl('mine');
 	};
 })
 ;
