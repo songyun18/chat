@@ -1,0 +1,19 @@
+<ion-view ng-class="bodyClass" data-title="聊天">
+	<ion-content>
+	<ion-refresher on-refresh="loadMore()">
+	</ion-refresher>
+	<div class="chat_body">
+		<dl ng-class="row.is_me?'right':'left'" ng-repeat="row in list">
+			<dt><img ng-src="{{row.avatar}}" /></dt>
+			<dd>{{row.message}}</dd>
+		</dl>
+	</div>
+	<div class="padding_foot"></div>
+	</ion-content>
+	<div class="chat_foot">
+		<form ng-submit="submit()">
+			<input class="input_text" ng-model="form.message" />
+			<button class="button green">发送</button>
+		</form>
+	</div>
+</ion-view>

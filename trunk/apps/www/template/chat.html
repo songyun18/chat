@@ -1,0 +1,16 @@
+<ion-view ng-class="bodyClass" data-title="聊天列表" hide-back-button="true">
+	<ion-content>
+	<div class="record_body">
+		<dl ng-repeat="row in list" ng-click="go('message',{'chatId':row.chat_id})">
+			<dd class="float_left">
+				<img ng-src="{{row.avatar}}" />
+			</dd>
+			<dd class="float_right gray">{{row.update_time_exp}}</dd>
+			<dt>{{row.user_name}}</dt>
+			<dd class="gray">{{row.last_message}}</dd>
+			<dd class="clear"></dd>
+		</dl>
+	</div>
+	</ion-content>
+	<div class="foot" foot></div>
+</ion-view>
