@@ -3,9 +3,6 @@
 	@auther:Christopher_Song
 	版权所有，侵权必究
 */
-body, h1, h2, h3, h4, ul, li, ol , dl, dd, dt, table, tr, form { margin:0; padding:0; }
-ul, li, dl, dd, dt, from, table { list-style:none; }
-img { border:none; line-height:0; }
 
 /*public share tag start*/
 h1 { font-size: 2em; line-height: 2.4em; }

@@ -10,11 +10,15 @@ var routeArray={
 		'source':null,
 		//'templateUrl':'',
 	},
-	'chat':{
+	'tabs':{
+		'abstract':true,
+	},
+	'tabs.chat':{
 		'source':null,
 		//'templateUrl':'',
 	},
-	'friend':{
+	
+	'tabs.friend':{
 		'source':null,
 		//'templateUrl':'',
 	},
@@ -22,7 +26,7 @@ var routeArray={
 		'url':'/message/:chatId',
 		'source':null,
 	},
-	'mine':{
+	'tabs.mine':{
 		'source':null,
 		//'templateUrl':'',
 	},

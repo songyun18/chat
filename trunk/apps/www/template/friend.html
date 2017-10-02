@@ -1,17 +1,11 @@
 <ion-view ng-class="bodyClass" data-title="通讯录" hide-back-button="true">
 	<ion-content>
-	<div class="book_body">
-		<ul>
-			<li ng-repeat="row in list" ng-click="chat(row.user_id)">
-				<img ng-src="{{row.avatar}}" />
-				{{row.user_name}}
-			</li>
-		</ul>
-		<dl>
-			<dd class="float_left"></dd>
-			<dt></dt>
-		</dl>
-	</div>
+		<div class="list">
+			<a class="item item-avatar item-icon-right" href="{{ngUrl('index')}}">
+				<img src="mine/images/avatar.jpg">
+				<h2 class="padding">Venkman</h2>
+			</a>
+		</div>
+		
 	</ion-content>
-	<div class="foot" foot></div>
 </ion-view>
