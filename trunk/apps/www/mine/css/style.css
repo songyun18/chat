@@ -5,4 +5,5 @@
 */
 
 .thumb { width:50px; border-radius:5px;}
+.tabs .tab-item.tab-item-active { color:#387ef5; }
 

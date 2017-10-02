@@ -52,7 +52,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		HttpService.post(url,param,function(data)
 		{
 			CommonValue.set('userInfo',JSON.stringify(data));
-			$state.go('tabs.chat');
+			$state.go('chat');
 		});
 	};
 })

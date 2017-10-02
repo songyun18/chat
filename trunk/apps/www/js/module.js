@@ -610,7 +610,7 @@ angular.module('app.module',['ui.router'])
 		priority: 0,
 		restrict: 'A',
 		templateUrl:'template/foot.html',
-		transclude:true,
+		//transclude:true,
 		compile: function compile(tElement, tAttrs)
 		{
 			return function postLink(scope, element, attrs)

@@ -1,26 +1,18 @@
-	<div class="padding_foot"></div>
-	<div class="foot">
-		<ul>
-			<li>
-				<a href="{{ngUrl('chat')}}" nav-transition="none" ng-class="(index==1)?'now':''">
-					<span class="iconfont icon-weixin"></span><br />聊天
-				</a>
-			</li>
-			<li>
-				<a href="{{ngUrl('friend')}}" nav-transition="none" ng-class="(index==2)?'now':''">
-					<span class="iconfont icon-tongxunlu"></span><br />朋友
-				</a>
-			</li>
-			<li>
-				<a href="javascript:;" nav-transition="none" ng-class="(index==3)?'now':''">
-					<span class="iconfont icon-faxian spec"></span><br />发现
-				</a>
-			</li>
-			<li>
-				<a href="{{ngUrl('mine')}}" nav-transition="none" ng-class="(index==4)?'now':''">
-					<span class="iconfont icon-wo"></span><br />我
-				</a>
-			</li>
-		</ul>
-		<div class="clear"></div>
-	</div>
+<div class="tab-nav tabs">
+	<a href="{{ngUrl('chat')}}" nav-transition="none" class="tab-item" ng-class="(index==1)?'tab-item-active':''">
+		<i class="icon ion-chatboxes"></i>
+		<span class="tab-title ng-binding">聊天</span>
+	</a>
+	<a href="{{ngUrl('friend')}}" nav-transition="none" class="tab-item" ng-class="(index==2)?'tab-item-active':''">
+		<i class="icon ion-person-stalker"></i>
+		<span class="tab-title ng-binding">朋友</span>
+	</a>
+	<a href="javascript:;" nav-transition="none" class="tab-item" ng-class="(index==3)?'tab-item-active':''">
+		<i class="icon ion-clock"></i>
+		<span class="tab-title ng-binding">发现</span>
+	</a>
+	<a href="{{ngUrl('mine')}}" nav-transition="none" class="tab-item" ng-class="(index==4)?'tab-item-active':''">
+		<i class="icon ion-person"></i>
+		<span class="tab-title ng-binding">我</span>
+	</a>
+</div>
