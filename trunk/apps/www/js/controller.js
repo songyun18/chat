@@ -26,7 +26,7 @@ for(var router in routeArray)
 	controller.controller(controllerName,function(){});
 }
 
-controller.controller('loginAction',function($scope,$rootScope,HttpService,CommonValue,$state)
+controller.controller('loginAction',function($scope,$rootScope,HttpService,CommonValue,$state,CommonService)
 {
 	$rootScope.bodyClass="gray_body";
 	$scope.form={
@@ -38,12 +38,12 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 	{
 		if($scope.form.user_name=='')
 		{
-			alert('请输入用户名');
+			CommonService.alert('请输入用户名');
 			return false;
 		}
 		if($scope.form.password=='')
 		{
-			alert('请输入密码');
+			CommonService.alert('请输入密码');
 			return false;
 		}
 		
@@ -52,11 +52,11 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		HttpService.post(url,param,function(data)
 		{
 			CommonValue.set('userInfo',JSON.stringify(data));
-			$state.go('chat');
+			$state.go('tabs.chat');
 		});
 	};
 })
-.controller('registerAction',function($scope,HttpService,$rootScope,$state)
+.controller('registerAction',function($scope,HttpService,$rootScope,$state,CommonService)
 {
 	$rootScope.bodyClass="gray_body";
 	$scope.form={
@@ -69,17 +69,17 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 	{
 		if($scope.form.user_name=='')
 		{
-			alert('请输入用户名');
+			CommonService.alert('请输入用户名');
 			return false;
 		}
 		if($scope.form.password=='')
 		{
-			alert('请输入密码');
+			CommonService.alert('请输入密码');
 			return false;
 		}
 		if($scope.form.password1!=$scope.form.password)
 		{
-			alert('两次密码输入不一致');
+			CommonService.alert('两次密码输入不一致');
 			return false;
 		}
 		
