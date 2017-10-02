@@ -228,9 +228,11 @@ ion-view.gray_body { background-color:#EBEBEB; }
 ion-nav-bar.bar { background-color:#313036; width:100%; }
 	ion-nav-bar.bar h1 { color:white; text-align:center; font-size:18px; line-height:40px; }
 	*/
+/*
 ion-header-bar.bar { background-color:#313036; width:100%; }
 	ion-header-bar.bar .title { color:white; text-align:center; font-size:18px; line-height:40px; }
 	ion-header-bar.bar .button { background-color:transparent; color:white; }
 	ion-header-bar.bar .button .icon { }
 .popup-buttons .button { width:100%; }
+*/
 /*fix ionic end*/
