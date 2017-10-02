@@ -1,22 +1,20 @@
-<ion-view ng-class="bodyClass" hide-back-button="true" data-title="我">
+<ion-view ng-class="bodyClass" data-title="我">
 	<ion-content>
-	<div class="click_list">
-		<div class="height_10"></div>
-		<dl ng-click="goto('info')">
-			<dd class="float_left"><img ng-src="{{userInfo.avatar}}" /></dd>
-			<dt>{{userInfo.nickname}}</dt>
-			<dd>账户:{{userInfo.user_name}}</dd>
-			<dd class="clear"></dd>
-		</dl>
-		<div class="height_10"></div>
-		<ul>
-			<li><a href="{{ngUrl('info')}}" nav-transition="none">设置</a></li>
-		</ul>
-		<div class="height_10"></div>
-		<div class="padding_10">
-			<button class="button full_width red radius mine" ng-click="logout()">注销</button>
+		<div class="list">
+			<div class="item item-avatar item-icon-right" ng-click="goto('tabs.info')">
+				<img src="mine/images/avatar.jpg">
+				<h2>Song</h2>
+				<p>账户：songyun18</p>
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</div>
+			<a class="item item-icon-left item-icon-right" href="#">
+				<i class="icon ion-ios-gear"></i>
+				设置
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</a>
 		</div>
-	</div>
+		<div class="padding">
+			<button class="button button-block button-assertive">退出</button>
+		</div>
 	</ion-content>
-	<div class="foot" foot></div>
 </ion-view>

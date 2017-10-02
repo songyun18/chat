@@ -71,7 +71,7 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($stat
 	//$httpProvider.defaults.headers.post['Content-Type']='application/json';
 	$httpProvider.defaults.headers.post['Content-Type']='application/x-www-form-urlencoded';
 }])
-.run(function($rootScope,pcUrl,ngUrl,$location,CommonService)
+.run(function($rootScope,pcUrl,ngUrl,$location,CommonService,$state)
 {
 	$rootScope.pcUrl=pcUrl;
 	$rootScope.ngUrl=ngUrl;
@@ -81,7 +81,8 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($stat
 	
 	$rootScope.goto=function(router,param)
 	{
-		location.href=ngUrl(router,param);
+		//location.href=ngUrl(router,param);
+		$state.go(router);
 	};
 })
 ;
