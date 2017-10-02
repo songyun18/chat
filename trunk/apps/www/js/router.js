@@ -22,7 +22,8 @@ var routeArray={
 		'source':null,
 		//'templateUrl':'',
 	},
-	'message':{
+	'tabs.message':{
+		'parentState':'tabs.chat',
 		'url':'/message/:chatId',
 		'source':null,
 	},
@@ -30,7 +31,8 @@ var routeArray={
 		'source':null,
 		//'templateUrl':'',
 	},
-	'info':{
+	'tabs.info':{
 		'source':null,
+		'parentState':'tabs.mine',
 	},
 };

@@ -156,6 +156,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 })
 .controller('messageAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo,getChatInfo,socket,$stateParams,$ionicScrollDelegate)
 {
+	/*
 	$rootScope.bodyClass="gray_body";
 	$rootScope.hideTabs=true;
 	
@@ -257,6 +258,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 			gotoBottom();
 		});
 	};
+	*/
 })
 
 .controller('mineAction',function($scope,HttpService,$rootScope,$timeout,CommonValue,$state)

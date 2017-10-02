@@ -48,7 +48,7 @@ angular.module('app.module',['ui.router'])
 	{
 		for(var i in params)
 		{
-			url+=params[i]+'/';
+			url+='/'+params[i];
 		}
 		url=url.substr(0,url.length-1);
 	}
@@ -620,6 +620,22 @@ angular.module('app.module',['ui.router'])
 		controller:function($scope)
 		{
 		},
+	};
+})
+.directive('hideTabs', function($rootScope) {
+	return {
+		restrict: 'A',
+		link: function(scope, element, attributes) {
+			scope.$on('$ionicView.beforeEnter', function() {
+				scope.$watch(attributes.hideTabs, function(value){
+					$rootScope.hideTabs = value;
+				});
+			});
+
+			scope.$on('$ionicView.beforeLeave', function() {
+				$rootScope.hideTabs = false;
+			});
+		}
 	};
 })
 ;

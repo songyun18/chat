@@ -1,4 +1,4 @@
-<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+<ion-tabs class="tabs-icon-top tabs-color-active-positive" ng-class="hideTabs?'tabs-item-hide':''">
 	<ion-tab title="聊天" icon-off="ion-chatboxes" icon-on="ion-chatboxes" href="{{ngUrl('tabs.chat')}}">
 		<ion-nav-view name="tabs-chat"></ion-nav-view>
 	</ion-tab>
