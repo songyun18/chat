@@ -96,7 +96,7 @@ class Model
 					case "email":
 						//$preg="/^\w*?@\w*?\.[a-zA-Z]{2,3}$/";
 						$preg = "/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/";
-						if(!empty($data[$key]) && !preg_match($preg,$data[$key]))
+						if(isset($data[$key]) && !preg_match($preg,$data[$key]))
 						{
 							$result['message']=$name.'为邮件格式';
 							return $result;
@@ -104,7 +104,7 @@ class Model
 						break;
 					case "phone":
 						$preg="/^1\d\d\d{8}$/";
-						if(!empty($data[$key]) && !preg_match($preg,$data[$key]))
+						if(isset($data[$key]) && !preg_match($preg,$data[$key]))
 						{
 							$result['message']=$name.'为手机格式';
 							return $result;
@@ -112,14 +112,14 @@ class Model
 						break;
 					case "number":
 						$preg="/^([1-9]\d*\.?\d*)|(0\.\d*[1-9])|0$/";
-						if(!empty($data[$key]) && !preg_match($preg,$data[$key]))
+						if(isset($data[$key]) && !preg_match($preg,$data[$key]))
 						{
 							$result['message']=$name.'为数字格式';
 							return $result;
 						}
 						break;
 					case "array":
-						if(!empty($data[$key]) && !in_array($data[$key],$value))
+						if(isset($data[$key]) && !in_array($data[$key],$value))
 						{
 							$result['message']=$name.'数值错误';
 							return $result;
@@ -127,7 +127,7 @@ class Model
 						break;
 					case "preg":
 						$preg=$value;
-						if(!empty($data[$key]) && !preg_match($preg,$data[$key]))
+						if(isset($data[$key]) && !preg_match($preg,$data[$key]))
 						{
 							$result['message']=$name.'格式错误';
 							return $result;
@@ -136,7 +136,7 @@ class Model
 					case "strlen":
 						$min_length=$value[0];
 						$max_length=$value[1];
-						if(!empty($data[$key]) && (strlen($data[$key])<$min_length || strlen($data[$key])>$max_length ))
+						if(isset($data[$key]) && (strlen($data[$key])<$min_length || strlen($data[$key])>$max_length ))
 						{
 							$result['message']=$name.'超出了允许范围';
 							return $result;
@@ -145,7 +145,7 @@ class Model
 					case "range":
 						$min_value=$value[0];
 						$max_value=$value[1];
-						if(!empty($data[$key]) && ($data[$key]<$min_value || $data[$key]>$max_value ))
+						if(isset($data[$key]) && ($data[$key]<$min_value || $data[$key]>$max_value ))
 						{
 							$result['message']=$name.'超出了允许范围';
 							return $result;
@@ -165,7 +165,7 @@ class Model
 						break;
 					case "date":
 						$preg="/^\d{4}\-\d{2}\-\d{2}/";
-						if(!empty($data[$key]) && !preg_match($preg,$data[$key]))
+						if(isset($data[$key]) && !preg_match($preg,$data[$key]))
 						{
 							$result['message']=$name.'为日期格式';
 							return $result;
@@ -173,7 +173,7 @@ class Model
 						break;
 					case "datetime":
 						$preg="/^\d{4}\-\d{2}\-\d{2} \d{1,2}\-\d{1,2}(\-\d{1,2}){0,1}$/";
-						if(!empty($data[$key]) && !preg_match($preg,$data[$key]))
+						if(isset($data[$key]) && !preg_match($preg,$data[$key]))
 						{
 							$result['message']=$name.'为日期时间格式';
 							return $result;

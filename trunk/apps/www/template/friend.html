@@ -1,9 +1,9 @@
 <ion-view ng-class="bodyClass" data-title="通讯录" hide-back-button="true">
 	<ion-content>
 		<div class="list">
-			<a class="item item-avatar item-icon-right" href="{{ngUrl('message',{'chatId':1})}}">
-				<img src="mine/images/avatar.jpg">
-				<h2 class="padding-top">Venkman</h2>
+			<a class="item item-avatar item-icon-right" href="javascript:;" ng-click="chat(row.user_id)" ng-repeat="row in list">
+				<img ng-src="{{row.avatar}}">
+				<h2 class="padding-top">{{row.user_name}}</h2>
 			</a>
 		</div>
 	</ion-content>

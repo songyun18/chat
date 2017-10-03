@@ -80,6 +80,9 @@ class userController extends RestController
 		
 		$this->upload();
 		$data=getPost();
+		if(!$data['avatar'])
+			unset($data['avatar']);
+		
 		$user_model=D('User');
 		$result=$user_model->update($user_id,$data);
 		if(!$result['flag'])

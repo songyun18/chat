@@ -50,7 +50,7 @@ angular.module('app.module',['ui.router'])
 		{
 			url+='/'+params[i];
 		}
-		url=url.substr(0,url.length-1);
+		//url=url.substr(0,url.length-1);
 	}
 	/*
 	if(params!=undefined)
@@ -158,6 +158,7 @@ angular.module('app.module',['ui.router'])
 	//data.chat_id
 	this.join=function(data)
 	{
+		console.log(data);
 		this.io.emit('join',data);
 	};
 	
