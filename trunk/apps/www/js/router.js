@@ -10,25 +10,28 @@ var routeArray={
 		'source':null,
 		//'templateUrl':'',
 	},
-	'chat':{
+	'tabs':{
+		'abstract':true,
+	},
+	'tabs.chat':{
 		'source':null,
 		//'templateUrl':'',
 	},
 	
-	'friend':{
+	'tabs.friend':{
 		'source':null,
 		//'templateUrl':'',
 	},
-	'message':{
+	'tabs.message':{
 		'parentState':'tabs.chat',
 		'url':'/message/:chatId',
 		'source':null,
 	},
-	'mine':{
+	'tabs.mine':{
 		'source':null,
 		//'templateUrl':'',
 	},
-	'info':{
+	'tabs.info':{
 		'source':null,
 		'parentState':'tabs.mine',
 	},

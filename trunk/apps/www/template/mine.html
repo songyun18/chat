@@ -1,10 +1,10 @@
 <ion-view ng-class="bodyClass" data-title="我" hide-back-button="true">
 	<ion-content>
 		<div class="list">
-			<div class="item item-avatar item-icon-right" ng-click="goto('info')">
-				<img src="mine/images/avatar.jpg">
-				<h2>Song</h2>
-				<p>账户：songyun18</p>
+			<div class="item item-avatar item-icon-right" ng-click="goto('tabs.info')">
+				<img ng-src="{{userInfo.avatar}}">
+				<h2>{{userInfo.nickname}}</h2>
+				<p>账户：{{userInfo.user_name}}</p>
 				<i class="icon ion-chevron-right icon-accessory"></i>
 			</div>
 			<a class="item item-icon-left item-icon-right" href="#">

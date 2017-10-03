@@ -52,7 +52,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		HttpService.post(url,param,function(data)
 		{
 			CommonValue.set('userInfo',JSON.stringify(data));
-			$state.go('chat');
+			$state.go('tabs.chat');
 		});
 	};
 })
@@ -288,10 +288,13 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 	$scope.formUrl=$sce.trustAsResourceUrl($rootScope.pcUrl('user','saveInfo'));
 	
 	$scope.userInfo=getUserInfo();
-	console.log($scope.userInfo);
+	$scope.selectAvatar=function()
+	{
+		$('[name="avatar"]').trigger('click');
+	};
 	$scope.callback=function()
 	{
-		$state.go('mine');
+		$state.go('tabs.mine');
 		//location.href=$scope.ngUrl('mine');
 	};
 })

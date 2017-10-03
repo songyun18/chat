@@ -8,9 +8,12 @@
 				<img ng-src="{{userInfo.avatar}}" class="thumb" ng-click="selectAvatar()">
 				</button>
 			</label>
+			<div style="display:none;">
+				<input name="avatar" type="file"/>
+			</div>
 			<label class="item item-input">
 				<span class="input-label">昵称</span>
-				<input type="text" value="{{userInfo.nickname}}">
+				<input name="nickname" type="text" value="{{userInfo.nickname}}">
 			</label>
 		</div>
 		<div class="padding">
