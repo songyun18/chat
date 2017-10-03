@@ -2,6 +2,8 @@ angular.module('app.module',['ui.router'])
 //全局常量
 .constant('hostUrl','http://chat.test.com/rest/index.php')
 .constant('nodejsUrl','http://192.168.1.45:8080')
+//.constant('hostUrl','http://114.55.52.245/chat/apps/rest/index.php')
+//.constant('nodejsUrl','http://114.55.52.245:8080')
 
 .factory('pcUrl',function(hostUrl)
 {

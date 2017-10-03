@@ -91,7 +91,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		});
 	};
 })
-.controller('chatAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo,$state,$injector)
+.controller('chatAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo,$state,$injector,$ionicViewSwitcher)
 {
 	$rootScope.bodyClass="";
 	$scope.index=1;
@@ -106,6 +106,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 	
 	$scope.joinRoom=function(router,query)
 	{
+		
 		var url=$scope.pcUrl('chat','userInfo');
 		var param={};
 		param.chat_id=query.chatId;
@@ -121,6 +122,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 			data.chat_id=query.chatId;
 			socket.join(data);
 			
+			$ionicViewSwitcher.nextDirection('forward');
 			$state.go(router,query);
 		});
 	};
@@ -171,6 +173,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		
 		$rootScope.hideTabs=false;
 	});
+	
 	socket.io.on('message',function(message)
 	{
 		console.log('有消息进入');

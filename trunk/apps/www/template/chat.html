@@ -1,7 +1,7 @@
 <ion-view ng-class="bodyClass" data-title="聊天列表" hide-back-button="true">
 	<ion-content>
 		<div class="list">
-			<a class="item item-avatar item-icon-right" href="javascript:;" ng-click="joinRoom('tabs.message',{'chatId':row.chat_id})" nav-direction="forward" ng-repeat="row in list">
+			<a class="item item-avatar item-icon-right" href="javascript:;" ng-click="joinRoom('tabs.message',{'chatId':row.chat_id})" ng-repeat="row in list" nav-direction="forward">
 				<img ng-src="{{row.avatar}}">
 				<h2>{{row.user_name}}</h2>
 				<p>{{row.last_message}}</p>
