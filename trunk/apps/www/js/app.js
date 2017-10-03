@@ -21,7 +21,7 @@ function onDeviceReady()
 }
 
 var app=angular.module('app',['ionic','app.controller','app.module']);
-app.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($stateProvider, $urlRouterProvider,$httpProvider)
+app.config(['$stateProvider','$urlRouterProvider','$httpProvider','$ionicConfigProvider',function($stateProvider, $urlRouterProvider,$httpProvider,$ionicConfigProvider)
 {
 	var defaultUrl=null;
 	var rootState='root';
@@ -70,6 +70,9 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider',function($stat
 	$urlRouterProvider.otherwise(defaultUrl);
 	//$httpProvider.defaults.headers.post['Content-Type']='application/json';
 	$httpProvider.defaults.headers.post['Content-Type']='application/x-www-form-urlencoded';
+	
+	$ionicConfigProvider.tabs.position('bottom');
+	$ionicConfigProvider.navBar.alignTitle('center');
 }])
 .run(function($rootScope,pcUrl,ngUrl,$location,CommonService,$state)
 {

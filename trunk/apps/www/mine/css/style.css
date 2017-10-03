@@ -8,7 +8,7 @@ ion-view.gray_body { background-color:#EBEBEB; }
 .input_text { width:15em; height:2.4em; border:1px solid #CCC; box-sizing:border-box; -moz-box-sizing:border-box; padding:0 0.8em; -webkit-appearance:none; }
 .thumb { width:50px; border-radius:5px;}
 .tabs .tab-item.tab-item-active { color:#387ef5; }
-.padding_foot { height:50px; }
+.padding_foot { height:60px; }
 
 .chat_body {}
 	.chat_body dl { margin:10px; }

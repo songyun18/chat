@@ -1,5 +1,5 @@
 <ion-view ng-class="bodyClass" data-title="我" hide-back-button="true">
-	<ion-content>
+	<ion-content overflow-scroll="false">
 		<div class="list">
 			<div class="item item-avatar item-icon-right" ng-click="goto('tabs.info')">
 				<img ng-src="{{userInfo.avatar}}">
@@ -17,5 +17,4 @@
 			<button class="button button-block button-assertive" ng-click="logout()">退出</button>
 		</div>
 	</ion-content>
-	<div class="tabs-icon-top" foot>
 </ion-view>
