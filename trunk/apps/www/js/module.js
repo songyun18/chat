@@ -2,6 +2,8 @@ angular.module('app.module',['ui.router'])
 //全局常量
 .constant('hostUrl','http://chat.test.com/rest/index.php')
 .constant('nodejsUrl','http://192.168.1.45:8080')
+//.constant('hostUrl','http://114.55.52.245/chat/apps/rest/index.php')
+//.constant('nodejsUrl','http://114.55.52.245:8080')
 
 .factory('pcUrl',function(hostUrl)
 {
@@ -50,7 +52,7 @@ angular.module('app.module',['ui.router'])
 		{
 			url+='/'+params[i];
 		}
-		url=url.substr(0,url.length-1);
+		//url=url.substr(0,url.length-1);
 	}
 	/*
 	if(params!=undefined)
@@ -158,6 +160,7 @@ angular.module('app.module',['ui.router'])
 	//data.chat_id
 	this.join=function(data)
 	{
+		console.log(data);
 		this.io.emit('join',data);
 	};
 	
@@ -610,7 +613,7 @@ angular.module('app.module',['ui.router'])
 		priority: 0,
 		restrict: 'A',
 		templateUrl:'template/foot.html',
-		transclude:true,
+		//transclude:true,
 		compile: function compile(tElement, tAttrs)
 		{
 			return function postLink(scope, element, attrs)

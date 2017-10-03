@@ -1,14 +1,23 @@
 <ion-view ng-class="bodyClass" hide-back-button="false" data-title="个人资料">
 	<ion-content>
+		<form action="{{formUrl}}" method="post" enctype="multipart/form-data" data-callback="callback">
 		<div class="list">
 			<label class="item item-input">
-				<span class="input-label">Username</span>
-					<img src="mine/images/avatar.jpg" class="thumb">
+				<span class="input-label">头像</span>
+				<button type="button" ng-click="selectAvatar()" style="border:none; background:none;">
+				<img ng-src="{{userInfo.avatar}}" class="thumb" ng-click="selectAvatar()">
+				</button>
 			</label>
+			<div style="display:none;">
+				<input name="avatar" type="file"/>
+			</div>
 			<label class="item item-input">
 				<span class="input-label">昵称</span>
-				<input type="text" value="songyun18">
+				<input name="nickname" type="text" value="{{userInfo.nickname}}">
 			</label>
 		</div>
+		<div class="padding">
+			<button class="button button-block button-positive">确认</button>
+		</form>
 	</ion-content>
 </ion-view>

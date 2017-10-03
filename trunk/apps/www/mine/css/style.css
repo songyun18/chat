@@ -4,5 +4,29 @@
 	版权所有，侵权必究
 */
 
+ion-view.gray_body { background-color:#EBEBEB; }
+.input_text { width:15em; height:2.4em; border:1px solid #CCC; box-sizing:border-box; -moz-box-sizing:border-box; padding:0 0.8em; -webkit-appearance:none; }
 .thumb { width:50px; border-radius:5px;}
+.tabs .tab-item.tab-item-active { color:#387ef5; }
+.padding_foot { height:50px; }
 
+.chat_body {}
+	.chat_body dl { margin:10px; }
+	.chat_body dl:after { content:''; display:block; clear:both; }
+			.chat_body dl dt img { width:45px; }
+			
+		.chat_body dl dd { border:1px solid #DCDCDC; background-color:white; padding:15px 10px; position:relative; border-radius:5px; max-width:70%; }
+		.chat_body dl dd:before { content:""; display:block; width:10px; height:20px; position:absolute; top:28%; }
+		
+		.chat_body dl.left dt { float:left; margin-right:14px; }
+		.chat_body dl.left dd { float:left; }
+		.chat_body dl.left dd:before { background:url(../images/arrow_left.png); left:-10px; }
+		
+		.chat_body dl.right dt { float:right; margin-left:14px; }
+		.chat_body dl.right dd { float:right; background-color:#A2E65B; }
+		.chat_body dl.right dd:before { background:url(../images/arrow_right.png); right:-10px; }
+
+
+.chat_foot { position:fixed; bottom:0; width:100%; background-color:#F5F5F7; border-top:1px solid #D9D9DB; padding:10px 0; padding:10px; box-sizing:border-box; }
+	.chat_foot .input_text { height:38px; border:1px solid #BBBBBB; border-radius:5px; width:75%; }
+	.chat_foot .button { width:20%; height:38px; min-height:38px; line-height:38px; }

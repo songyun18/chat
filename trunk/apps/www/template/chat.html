@@ -1,24 +1,14 @@
 <ion-view ng-class="bodyClass" data-title="聊天列表" hide-back-button="true">
 	<ion-content>
 		<div class="list">
-			<a class="item item-avatar item-icon-right" href="{{ngUrl('tabs.message',{'chatId':1})}}">
-				<img src="mine/images/avatar.jpg">
-				<h2>Venkman</h2>
-				<p>Back off, man. I'm a scientist.</p>
-				<i class="icon ion-chevron-right icon-accessory"></i>
-			</a>
-			<a class="item item-avatar item-icon-right" href="{{ngUrl('index')}}">
-				<img src="mine/images/avatar.jpg">
-				<h2>Venkman</h2>
-				<p>Back off, man. I'm a scientist.</p>
-				<i class="icon ion-chevron-right icon-accessory"></i>
-			</a>
-			<a class="item item-avatar item-icon-right" href="{{ngUrl('index')}}">
-				<img src="mine/images/avatar.jpg">
-				<h2>Venkman</h2>
-				<p>Back off, man. I'm a scientist.</p>
+			<a class="item item-avatar item-icon-right" href="javascript:;" ng-click="joinRoom('tabs.message',{'chatId':row.chat_id})" ng-repeat="row in list" nav-direction="forward">
+				<img ng-src="{{row.avatar}}">
+				<h2>{{row.user_name}}</h2>
+				<p>{{row.last_message}}</p>
 				<i class="icon ion-chevron-right icon-accessory"></i>
 			</a>
 		</div>
 	</ion-content>
+	<div class="tabs-icon-top" foot>
+	</div>
 </ion-view>

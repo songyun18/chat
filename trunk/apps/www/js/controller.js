@@ -91,7 +91,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		});
 	};
 })
-.controller('chatAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo,$state,$injector)
+.controller('chatAction',function($scope,HttpService,$rootScope,CommonValue,socket,getUserInfo,$state,$injector,$ionicViewSwitcher)
 {
 	$rootScope.bodyClass="";
 	$scope.index=1;
@@ -101,10 +101,12 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 	HttpService.post(url,param,function(data)
 	{
 		$scope.list=data;
+		console.log($scope.list);
 	});
 	
-	$scope.go=function(router,query)
+	$scope.joinRoom=function(router,query)
 	{
+		
 		var url=$scope.pcUrl('chat','userInfo');
 		var param={};
 		param.chat_id=query.chatId;
@@ -120,6 +122,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 			data.chat_id=query.chatId;
 			socket.join(data);
 			
+			$ionicViewSwitcher.nextDirection('forward');
 			$state.go(router,query);
 		});
 	};
@@ -144,7 +147,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 			data1.chat_id=data.chat_id;
 			socket.join(data1);
 			
-			$state.go('message',{'chatId':data.chat_id},{'location':'replace'});
+			$state.go('tabs.message',{'chatId':data.chat_id},{'location':'replace'});
 		});
 	};
 	var url=$scope.pcUrl('friend','index');
@@ -156,10 +159,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 })
 .controller('messageAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo,getChatInfo,socket,$stateParams,$ionicScrollDelegate)
 {
-	/*
 	$rootScope.bodyClass="gray_body";
-	$rootScope.hideTabs=true;
-	
 	var chatId=$stateParams.chatId;
 	
 	var userInfo=getUserInfo();
@@ -173,7 +173,7 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		
 		$rootScope.hideTabs=false;
 	});
-	console.log(socket.io);
+	
 	socket.io.on('message',function(message)
 	{
 		console.log('有消息进入');
@@ -258,7 +258,6 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 			gotoBottom();
 		});
 	};
-	*/
 })
 
 .controller('mineAction',function($scope,HttpService,$rootScope,$timeout,CommonValue,$state)
@@ -286,15 +285,19 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		});
 	};
 })
-.controller('infoAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo,$state)
+.controller('infoAction',function($scope,HttpService,$rootScope,$timeout,getUserInfo,$state,$sce)
 {
 	$rootScope.bodyClass="gray_body";
-
+	$scope.formUrl=$sce.trustAsResourceUrl($rootScope.pcUrl('user','saveInfo'));
+	
 	$scope.userInfo=getUserInfo();
-	console.log($scope.userInfo);
+	$scope.selectAvatar=function()
+	{
+		$('[name="avatar"]').trigger('click');
+	};
 	$scope.callback=function()
 	{
-		$state.go('mine');
+		$state.go('tabs.mine');
 		//location.href=$scope.ngUrl('mine');
 	};
 })
