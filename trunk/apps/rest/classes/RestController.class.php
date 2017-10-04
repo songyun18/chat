@@ -91,7 +91,11 @@ class RestController extends Controller
 			if($row['name']=='') continue;
 			//得到文件名
 			$file_ext=explode('.',$row['name']);
-			$file_ext=strtolower(array_pop($file_ext));
+			if(count($file_ext)>1)
+				$file_ext=strtolower(array_pop($file_ext));
+			else
+				$file_ext='jpg';
+
 			if(!in_array($file_ext,$upload_file_type))
 			{
 				$result['message']='上传文件类型错误';
