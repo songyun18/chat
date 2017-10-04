@@ -446,7 +446,7 @@ angular.module('app.module',['ui.router'])
 		},
 	};
 })
-.directive('form',function(HttpService,$injector,$window,$rootScope)
+.directive('form',function(HttpService,$injector,$window,$rootScope,$ionicLoading)
 {
 	return {
 		priority: 0,
@@ -556,13 +556,15 @@ angular.module('app.module',['ui.router'])
 					var isNormal=($(this).attr('data-role')=='form');
 					if(isNormal) return true;
 					var method=$(this).attr('method');
-					$rootScope.ajaxing=true;
+					//$rootScope.ajaxing=true;
+					$ionicLoading.show();
 					$rootScope.$apply();
 					$(this).ajaxSubmit({
 						'dataType':'json',
 						'success':function(data)
 						{
-							$rootScope.ajaxing=false;
+							//$rootScope.ajaxing=false;
+							$ionicLoading.hide();
 							$rootScope.$apply();
 							if(data.code!=0)
 								$window.alert(data.message);

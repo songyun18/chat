@@ -73,6 +73,7 @@ app.config(['$stateProvider','$urlRouterProvider','$httpProvider','$ionicConfigP
 	
 	$ionicConfigProvider.tabs.position('bottom');
 	$ionicConfigProvider.navBar.alignTitle('center');
+	$ionicConfigProvider.views.swipeBackEnabled(false);
 }])
 .run(function($rootScope,pcUrl,ngUrl,$location,CommonService,$state)
 {
