@@ -69,6 +69,11 @@ class userController extends RestController
 		$user_info['user_name']=$temp['user_name'];
 		$user_info['nickname']=$temp['nickname'];
 		$user_info['avatar']=$temp['avatar'];
+		//检查是否有未读信息
+		$mail_model=D('Mail');
+		$unread_list=$mail_model->getUnreadMail($user_id);
+		if($unread_list)
+			$user_info['unread_count']=count($unread_list);
 		
 		$this->success($user_info);
 	}
@@ -89,5 +94,40 @@ class userController extends RestController
 			$this->error($result['message']);
 		else
 			$this->success();
+	}
+
+	public function searchAction()
+	{
+		$this->checkLogin();
+		
+		$name=getgpc('name');
+		if(!$name)
+			$this->error('参数错误');
+
+		$user_id=$this->userId;
+		
+		$user_model=D('User');
+		$select="a.user_id,a.user_name,a.nickname,a.avatar,b.friend_id";
+		$sql="select $select from #@_user as a 
+			left join #@_friend as b on ((b.user1_id=a.user_id and b.user2_id=$user_id) or (b.user2_id=a.user_id and b.user1_id=$user_id))
+			where (a.user_name like '%$name%' or a.nickname like '%$name%') and a.user_id!=$user_id";
+		$temp=$user_model->query($sql);
+		$user_list=array();
+		
+		$default_avatar=ATTMS_URL.'web/images/avatar.jpg';
+		foreach($temp as $key=>$row)
+		{
+			if(!$row['avatar'])
+				$row['avatar']=$default_avatar;
+			
+			if($row['friend_id'])
+				$row['is_friend']=true;
+			else
+				$row['is_friend']=false;
+			
+			array_push($user_list,$row);
+		}
+		
+		$this->success($user_list);
 	}
 }

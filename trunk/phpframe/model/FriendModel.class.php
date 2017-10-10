@@ -161,4 +161,18 @@ class FriendModel extends Model
 		return $flag;
 	}
 
+	public function isFriends($user1_id,$user2_id)
+	{
+		$sql="select friend_id from #@_friend
+			where (user1_id=$user1_id and user2_id=$user2_id)
+				or
+			(user1_id=$user2_id and user2_id=$user1_id)";
+		$info=$this->query($sql);
+		
+		if(!$info)
+			return 0;
+		else
+			return $info[0]['friend_id'];
+	}
+
 }

@@ -193,6 +193,39 @@ angular.module('app.module',['ui.router'])
 					callback();
 			});
 		},
+		'confirm':function(message,callback,cancelBack){
+			$ionicPopup.show({
+				title: '提示',
+				template: message, 
+				buttons: [{
+					text: 'OK',
+					type: 'button-balanced',
+					onTap: function(e) {
+						if(callback && typeof(callback)=='function')
+							callback();
+					}
+				}, {
+					text: 'Cancel',
+					type: 'button-light',
+					onTap: function(e) {
+						if(cancelBack && typeof(cancelBack)=='function')
+							cancelBack();
+					}
+				}]
+			});
+			/*
+			$ionicPopup.confirm({
+				title: '提示',
+				template: message,
+				okText: '好的',
+				cancelText: '取消',
+			}).then(function(res)
+			{
+				if( res && callback && typeof(callback)=='function')
+					callback();
+			});
+			*/
+		},
 	};
 })
 //http访问对象

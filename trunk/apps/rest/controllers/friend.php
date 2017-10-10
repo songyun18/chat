@@ -46,14 +46,36 @@ class friendController extends UserController
 		$this->success($list);
 	}
 	
+	//发送好友请求
 	public function addAction()
 	{
-		$data=getPost();
-		$model=D('Friend');
-		$result=$model->add($data);
+		$user_id=getgpc('user_id');
+		if(!$user_id)
+			$this->error('参数错误');
+		
+		$send_id=$this->userId;
+		//检查两人是否为好友
+		$friend_model=D('Friend');
+		$is_friend=$friend_model->isFriends($send_id,$user_id);
+		if($is_friend)
+			$this->error('你们已经是好友');
+		
+		//发送站内信
+		//获取用户昵称
+		$user_model=D('User');
+		$send_info=$user_model->getInfo($send_id);
+		
+		$data=array();
+		$data['user_id']=$user_id;
+		$data['send_id']=$send_id;
+		$data['content']=$send_info['nickname'].'希望和你成为好友';
+		$data['type']=1;
+		$mail_model=D('Mail');
+		$result=$mail_model->add($data);
 		if(!$result['flag'])
 			$this->error($result['message']);
 		else
 			$this->success();
+		
 	}
 }

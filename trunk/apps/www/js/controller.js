@@ -301,4 +301,114 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 		//location.href=$scope.ngUrl('mine');
 	};
 })
+.controller('findAction',function($scope,$rootScope,HttpService,$state,CommonService)
+{
+	$rootScope.bodyClass="";
+
+	$scope.form={
+		'name':'',
+	};
+
+	$scope.submit=function()
+	{
+		if(!$scope.form.name.length)
+			return false;
+		var url=$scope.pcUrl('user','search');
+		var param={};
+		param.name=$scope.form.name;
+		HttpService.post(url,param,function(data)
+		{
+			$scope.user_list=data;
+		});
+		
+		return false;
+	};
+
+	$scope.addFriend=function(index)
+	{
+		var row=$scope.user_list[index];
+		if(row.is_friend)
+			return false;
+		
+		var message="是否添加"+row.nickname+"为好友呢";
+		CommonService.confirm(message,function()
+		{
+			var url=$scope.pcUrl('friend','add');
+			var param={};
+			param.user_id=row.user_id;
+			HttpService.post(url,param,function()
+			{
+				//row.is_friend=true;
+				CommonService.alert('已发出请求');
+			});
+		});
+	};
+})
+.controller('mailAction',function($scope,$rootScope,HttpService,$state,CommonService,$ionicPopup)
+{
+	$rootScope.bodyClass="gray_body";
+
+	var url=$scope.pcUrl('mail','index');
+	var param={};
+	HttpService.post(url,param,function(data)
+	{
+		$scope.list=data.list;
+		$scope.next_page=data.next_page;
+	});
+	
+	$scope.showMail=function(index)
+	{
+		var row=$scope.list[index];
+		var url=$scope.pcUrl('mail','status');
+		var param={};
+		param.mail_id=row.mail_id;
+		
+		/*
+		CommonService.confirm(row.content,function(){
+			param.status=1;
+			HttpService.post(url,param,function(data)
+			{
+				$scope.list[index]['status']=1;
+			});
+		},function(){
+			param.status=2;
+			HttpService.post(url,param,function(data)
+			{
+				$scope.list[index]['status']=2;
+			});
+		});
+		*/
+		
+		$ionicPopup.show({
+			title: '提示',
+			template: row.content, 
+			buttons: [{
+				text: '同意',
+				type: 'button-balanced',
+				onTap: function(e) {
+					param.status=1;
+					HttpService.post(url,param,function(data)
+					{
+						$scope.list[index]['status']=param.status;
+					});
+				}
+			}, {
+				text: '拒绝',
+				type: 'button-energized',
+				onTap: function(e) {
+					param.status=2;
+					HttpService.post(url,param,function(data)
+					{
+						$scope.list[index]['status']=param.status;
+					});
+				}
+			}, {
+				text: '取消',
+				type: 'button-light',
+				onTap: function(e) {
+				}
+			}]
+		});
+	};
+})
 ;

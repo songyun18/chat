@@ -7,8 +7,14 @@
 				<p>账户：{{userInfo.user_name}}</p>
 				<i class="icon ion-chevron-right icon-accessory"></i>
 			</div>
+			<a class="item item-icon-left item-icon-right" href="{{ngUrl('tabs.mail')}}">
+				<i class="icon ion-email dark spec"></i>
+				站内信
+				<span class="badge badge-assertive" ng-show="userInfo.unread_count">{{userInfo.unread_count}}</span>
+				<i class="icon ion-chevron-right icon-accessory normal"></i>
+			</a>
 			<a class="item item-icon-left item-icon-right" href="javascript:;">
-				<i class="icon ion-ios-gear"></i>
+				<i class="icon ion-ios-gear dark"></i>
 				设置
 				<i class="icon ion-chevron-right icon-accessory"></i>
 			</a>

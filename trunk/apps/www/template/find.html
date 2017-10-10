@@ -1,0 +1,28 @@
+<ion-view ng-class="bodyClass" data-title="发现">
+	<ion-content overflow-scroll="false">
+		<div class="list list-inset">
+			<form ng-submit="submit()">
+			<label class="item item-input">
+				<i class="icon ion-search placeholder-icon"></i>
+				<input type="text" placeholder="搜索用户" ng-model="form.name">
+			</label>
+			</form>
+		</div>
+		<div class="user_list">
+			<ul ng-show="user_list && user_list.length">
+				<li ng-repeat="(index,row) in user_list">
+					<a href="javascript:;" ng-click="addFriend(index)">
+						<img ng-src="{{row.avatar}}">
+						<br />
+						<h3>{{row.nickname}}</h3>
+						<span ng-show="row.is_friend">好友</span>
+					</a>
+				</li>
+			</ul>
+			<div class="padding text-center" ng-show="user_list && !user_list.length">
+				<span class="dark">没有搜索结果</span>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</ion-content>
+</ion-view>

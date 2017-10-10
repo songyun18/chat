@@ -27,6 +27,9 @@ var routeArray={
 		'url':'/message/:chatId',
 		'source':null,
 	},
+	'tabs.find':{
+		'source':null,
+	},
 	'tabs.mine':{
 		'source':null,
 		//'templateUrl':'',
@@ -34,5 +37,9 @@ var routeArray={
 	'tabs.info':{
 		'source':null,
 		'parentState':'tabs.mine',
+	},
+	'tabs.mail':{
+		'parentState':'tabs.mine',
+		'source':null,
 	},
 };
