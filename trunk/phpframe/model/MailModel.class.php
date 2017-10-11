@@ -18,10 +18,15 @@ class MailModel extends Model
 				'number'=>true,
 				'name'=>'发送人id',
 			),
-			'content'=>array(
+			'send_content'=>array(
 				'required'=>true,
 				'strlen'=>array(1,255),
-				'name'=>'站内信内容',
+				'name'=>'发信人内容',
+			),
+			'recive_content'=>array(
+				'required'=>true,
+				'strlen'=>array(1,255),
+				'name'=>'收信人内容',
 			),
 			'type'=>array(
 				'required'=>true,
@@ -41,7 +46,7 @@ class MailModel extends Model
 		$where=' 1 ';
 
 		if(isset($filter['user_id']))
-			$where.=' and a.user_id='.$filter['user_id'];
+			$where.=' and (a.user_id='.$filter['user_id'].' or a.send_id='.$filter['user_id'].')';
 		if(isset($filter['status']) && $filter['status']!=-1)
 			$where.=' and a.status='.$filter['status'];
 
@@ -77,19 +82,22 @@ class MailModel extends Model
 					$row['status_exp']='已拒绝';
 					break;
 			}
+			
+			if(isset($filter['user_id']) && $row['send_id']==$filter['user_id'])
+				$row['is_sender']=true;
+			
 			$row['add_time_exp']=date('Y-m-d H:i:s',$row['add_time']);
 			if($row['update_time'])
 				$row['update_time_exp']=date('Y-m-d H:i:s',$row['update_time']);
 			
 			$result['list'][$key]=$row;
 		}
-
+		
 		$result['page']=$page->getPageInfo();
 		$result['next_page']=$page->getNextPage();
 		return $result;
 	}
-
-
+	
 	public function getCount($where)
 	{
 		$sql="select count(*) as count from #@_mail as a
@@ -98,7 +106,7 @@ class MailModel extends Model
 		$temp=$this->query($sql);
 		return $temp[0]['count'];
 	}
-
+	
 	public function getInfo($mail_id)
 	{
 		$select="a.*,b.avatar,b.nickname as user_name";
@@ -134,7 +142,7 @@ class MailModel extends Model
 		
 		return $info;
 	}
-
+	
 	//添加记录
 	public function add($data)
 	{
@@ -262,7 +270,7 @@ class MailModel extends Model
 			$this->execute('COMMIT');
 		else
 			$this->execute('ROLLBACK');
-
+		
 		return $result;
 	}
 	
@@ -274,14 +282,23 @@ class MailModel extends Model
 		
 		return $flag;
 	}
-
+	
 	public function getUnreadMail($user_id)
 	{
 		$filter=array();
 		$filter['user_id']=$user_id;
 		$filter['status']=0;
-
-		$result=$this->getList($filter);
-		return $result['list'];
+		
+		$temp=$this->getList($filter);
+		$result=array();
+		
+		foreach($temp['list'] as $key=>$row)
+		{
+			if($row['is_sender'])
+				continue;
+			array_push($result,$row);
+		}
+		
+		return $list;
 	}
 }

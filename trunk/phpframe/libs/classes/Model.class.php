@@ -419,7 +419,10 @@ class Model
 				$where='where ';
 				foreach($this->options['where'] as $key=>$val)
 				{
-					$where.="`$key`='$val' and ";
+					if(is_array($val))
+						$where.="`$key` in (".implode(',',$val).") and ";
+					else
+						$where.="`$key`='$val' and ";
 				}
 				$where=substr($where,0,strlen($where)-5);
 				$this->options['where']=$where;

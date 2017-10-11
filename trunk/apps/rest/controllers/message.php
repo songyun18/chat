@@ -18,6 +18,7 @@ class messageController extends UserController
 		$user_id=$this->userId;
 		
 		$filter['chat_id']=$chat_id;
+		$filter['user_id']=$user_id;
 		$model=D('Message');
 		$result=$model->getList($filter);
 		foreach($result['list'] as $key=>$row)

@@ -35,15 +35,15 @@ class ChatModel extends Model
 	{
 		$where=' 1 ';
 
-		/*
-		if(isset($filter['title']))
-			$where.=' and a.title like "%'.$filter['title'].'%"';
-		 */
+		if(isset($filter['user_id']))
+			$where.=' and (a.user1_id='.$filter['user_id'].' or a.user2_id='.$filter['user_id'].')';
 
 		$count  = $this->getCount($where);    //计算总数
 		$page   = new Page($count, $page_size);
 
 		$select="a.*,b.nickname as user1_name,b.avatar as user1_avatar,c.nickname as user2_name,c.avatar as user2_avatar";
+		if(isset($filter['user_id']))
+			$select.=",(select count(*) from #@_message as c where c.user_id!=".$filter['user_id']." and c.chat_id=a.chat_id and c.is_read=0) as unread_count";
 		$order = 'a.chat_id desc';
 		$limit=$page->firstRow.','.$page->listRows;
 

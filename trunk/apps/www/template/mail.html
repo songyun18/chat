@@ -1,11 +1,12 @@
 <ion-view ng-class="bodyClass" data-title="站内信">
 	<ion-content overflow-scroll="false">
 		<div class="list" ng-show="list.length">
-			<a href="javascript:;" class="item" ng-click="showMail(index)" ng-repeat="(index,row) in list">
+			<a href="javascript:;" class="item" ng-class="{'balanced-bg':!row.is_sender && row.status==1,'positive-bg':!row.is_sender && row.status==0 && false,'assertive-bg':!row.is_sender && row.status==2,'light':!row.is_sender}" ng-click="showMail(index)" ng-repeat="(index,row) in list">
+				<span class="dark float_right" ng-show="row.is_sender && row.status==0">未读</span>
 				<span class="dark float_right" ng-show="row.status==1">已同意</span>
 				<span class="dark float_right" ng-show="row.status==2">已拒绝</span>
-				{{row.content}}
-				<span class="badge badge-assertive" ng-show="row.status==0">未读</span>
+				{{row.is_sender?row.send_content:row.recive_content}}
+				<span class="badge badge-assertive" ng-show="!row.is_sender && row.status==0">未读</span>
 			</a>
 		</div>
 	</ion-content>

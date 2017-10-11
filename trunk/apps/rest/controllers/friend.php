@@ -64,11 +64,13 @@ class friendController extends UserController
 		//获取用户昵称
 		$user_model=D('User');
 		$send_info=$user_model->getInfo($send_id);
+		$user_info=$user_model->getInfo($user_id);
 		
 		$data=array();
 		$data['user_id']=$user_id;
 		$data['send_id']=$send_id;
-		$data['content']=$send_info['nickname'].'希望和你成为好友';
+		$data['send_content']='你希望和'.$user_info['nickname'].'成为好友';
+		$data['recive_content']=$send_info['nickname'].'希望和你成为好友';
 		$data['type']=1;
 		$mail_model=D('Mail');
 		$result=$mail_model->add($data);

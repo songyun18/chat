@@ -34,14 +34,14 @@ class MessageModel extends Model
 		);
 		$this->setFields($fields);
 	}
-
+	
 	public function getList($filter=array(),$page_size=10)
 	{
 		$where=' 1 ';
-
+		
 		if(isset($filter['chat_id']))
 			$where.=' and a.chat_id ='.$filter['chat_id'];
-
+		
 		$count  = $this->getCount($where);    //计算总数
 		$page   = new Page($count, $page_size);
 
@@ -56,6 +56,8 @@ class MessageModel extends Model
 
 		$result['list']=$this->query($sql);
 		$default_avatar=ATTMS_URL.'web/images/avatar.jpg';
+		
+		$unread_ids=array();
 		foreach($result['list'] as $key=>$row)
 		{
 			if(!$row['avatar'])
@@ -71,9 +73,23 @@ class MessageModel extends Model
 					$row['is_read_exp']='是';
 					break;
 			}
+			if(isset($filter['user_id']) && $row['user_id']!=$filter['user_id'] && $row['is_read']==0)
+				array_push($unread_ids,$row['message_id']);
+			
 			$result['list'][$key]=$row;
 		}
-
+		//更新未读列表
+		if($unread_ids)
+		{
+			$data=array(
+				'is_read'=>1
+			);
+			
+			$this->where(array(
+				'message_id'=>$unread_ids
+			))->save($data);
+		}
+		
 		$result['page']=$page->getPageInfo();
 		$result['next_page']=$page->getNextPage();
 		return $result;

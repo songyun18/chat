@@ -88,5 +88,8 @@ ion-view.gray_body { background-color:#EBEBEB; }
 		*/
 		.user_list ul li span { position:absolute; top:30px; left:0; width:60px; height:30px; background-color:rgba(0,0,0,0.5); border-bottom-left-radius:60px; border-bottom-right-radius:60px; line-height:30px; color:white; }
 
+.chat_list {}
+	.chat_list .badge { top:27px; right:45px; }
+
 .item-icon-left .icon.spec {  font-size:30px; }
 

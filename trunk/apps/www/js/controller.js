@@ -359,6 +359,8 @@ controller.controller('loginAction',function($scope,$rootScope,HttpService,Commo
 	$scope.showMail=function(index)
 	{
 		var row=$scope.list[index];
+		if(row.is_sender)
+			return false;
 		var url=$scope.pcUrl('mail','status');
 		var param={};
 		param.mail_id=row.mail_id;

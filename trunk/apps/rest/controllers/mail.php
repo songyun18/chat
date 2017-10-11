@@ -22,6 +22,7 @@ class mailController extends UserController
 		$this->success($result);
 	}
 
+	//操作邮件
 	public function statusAction()
 	{
 		$status=getgpc('status');
@@ -29,7 +30,15 @@ class mailController extends UserController
 		if(!$mail_id || $status==0)
 			$this->error('参数错误');
 		
+		
 		$model=D('Mail');
+		//检查权限
+		$info=$model->getInfo($mail_id);
+		if(!$info)
+			$this->error('参数错误');
+		if($info['user_id'] != $this->userId)
+			$this->error('权限不足');
+		
 		//$result=$model->update($mail_id,$data);
 		$result=$model->confirm($mail_id,$status);
 		

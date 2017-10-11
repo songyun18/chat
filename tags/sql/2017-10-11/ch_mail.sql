@@ -1,0 +1,1 @@
+ALTER TABLE `chat`.`ch_mail` CHANGE COLUMN `content` `send_content` varchar(255) DEFAULT NULL COMMENT '发送人内容', ADD COLUMN `recive_content` varchar(255) COMMENT '接收人邮件内容' AFTER `sender_content`;
