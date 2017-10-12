@@ -58,7 +58,7 @@ class friendController extends SystemController
 		{
 			//$this->upload();
 			$data=getPost();
-			$result=$model->update($friend_id,$data);
+			$result=$model->save($friend_id,$data);
 			
 			if(!$result['flag'])
 				$this->error($result['message']);

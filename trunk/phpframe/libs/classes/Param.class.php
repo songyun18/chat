@@ -14,7 +14,7 @@ class Param
 	{
 		$this->defaultRoute=Base::loadConfig('route','default');
 		$path_info=Base::loadConfig('system','path_info');
-		if($path_info && $_SERVER['PATH_INFO'])
+		if($path_info && !$_GET)
 		{
 			$this->pathInfo=explode('/',$_SERVER['PATH_INFO']);
 			$_GET['c']=$this->pathInfo[1];
@@ -25,6 +25,10 @@ class Param
 				$temp=explode('_',$temp);
 				$_GET[$temp[0]]=$temp[1];
 			}
+			if(!$_GET['c'])
+				$_GET['c']=$this->defaultRoute['c'];
+			if(!$_GET['a'])
+				$_GET['a']=$this->defaultRoute['a'];
 		}
 	}
 	

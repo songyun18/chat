@@ -8,7 +8,7 @@ class ConfigModel extends Model
 		parent::__construct();
 	}
 
-	public function update($data)
+	public function save($data)
 	{
 		/*
 		$result=$this->checkPost($data);
@@ -17,7 +17,7 @@ class ConfigModel extends Model
 		*/
 		foreach($data as $key=>$value)
 		{
-			$result['flag']=$this->where(array('key'=>$key))->save(array(
+			$result['flag']=$this->where(array('key'=>$key))->update(array(
 				'value'=>$value,
 			));
 			if(!$result['flag'])
@@ -100,7 +100,7 @@ class ConfigModel extends Model
 		}
 		$result['flag']=$this->where(array(
 			'key'=>$key
-		))->save(array(
+		))->update(array(
 			'value'=>$value
 		));
 		if(!$result['flag'])

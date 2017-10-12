@@ -126,7 +126,7 @@ class ChatModel extends Model
 		$data1=$result['data'];
 		unset($result['data']);
 		$data1['add_time']=time();
-		$result['flag']=parent::add($data1);
+		$result['flag']=$this->insert($data1);
 		if(!$result['flag'])
 			$result['message']='插入记录失败';
 
@@ -134,9 +134,9 @@ class ChatModel extends Model
 	}
 
 	//修改记录
-	public function update($chat_id,$data)
+	public function save($chat_id,$data)
 	{
-		$result=$this->checkPost($data,'update');
+		$result=$this->checkPost($data,'save');
 		if(!$result['flag'])
 			return $result;
 
@@ -154,7 +154,7 @@ class ChatModel extends Model
 		$data1['update_time']=time();
 		$result['flag']=$this->where(array(
 			'chat_id'=>$chat_id			
-		))->save($data1);
+		))->update($data1);
 
 		if(!$result['flag'])
 			$result['message']='修改记录失败';

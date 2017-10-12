@@ -58,7 +58,7 @@ class messageController extends SystemController
 		{
 			//$this->upload();
 			$data=getPost();
-			$result=$model->update($message_id,$data);
+			$result=$model->save($message_id,$data);
 			
 			if(!$result['flag'])
 				$this->error($result['message']);

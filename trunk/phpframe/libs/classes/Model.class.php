@@ -280,19 +280,19 @@ class Model
 		return $this;
 	}
 	
-	public function add($data=null,$return_insert_id = false, $replace = false)
+	public function insert($data=null,$return_insert_id = false, $replace = false)
 	{
 		if($data!=null)
 			$this->options['data']=$data;
 		
-		$flag=$this->insert($this->options['data'],$return_insert_id, $replace);
+		$flag=$this->_insert($this->options['data'],$return_insert_id, $replace);
 		$this->options=array();
 		$this->sql='';
 		
 		return $flag;
 	}
 
-	public function insert($data,$return_insert_id = false, $replace = false)
+	private function _insert($data,$return_insert_id = false, $replace = false)
 	{
 		return $this->db->insert($data, $this->tableName, $return_insert_id, $replace);
 	}
@@ -349,7 +349,7 @@ class Model
 		return $result[0]['count'];
 	}
 
-	final private function _save()
+	final private function _update()
 	{
 		$this->_parseSql();
 		$this->sql="update {$this->tableName} set {$this->options['data']} {$this->options['where']}";
@@ -359,33 +359,33 @@ class Model
 		return $result;
 	}
 	
-	final public function save($data=null)
+	final public function update($data=null)
 	{
 		if($data!=null)
 			$this->options['data']=$data;
 
-		return $this->_save();
+		return $this->_update();
 	}
 
 	final public function setField($filed,$value)
 	{
 		$this->options['data']="`$filed`='$value'";
 
-		return $this->_save();
+		return $this->_update();
 	}
 
 	final public function setDec($filed,$number=1)
 	{
 		$this->options['data']="`$filed`=`$filed`-$number";
 
-		return $this->_save();
+		return $this->_update();
 	}
 
 	final public function setInc($filed,$number=1)
 	{
 		$this->options['data']="`$filed`=`$filed`+$number";
 
-		return $this->_save();
+		return $this->_update();
 	}
 
 	final public function delete($where=null)

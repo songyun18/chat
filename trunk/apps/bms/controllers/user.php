@@ -64,7 +64,7 @@ class userController extends SystemController
 			if($data['password'] && $data['password']!=$data['password1'])
 				$this->error('两次密码输入不一致');
 
-			$result=$model->update($user_id,$data);
+			$result=$model->save($user_id,$data);
 
 			if(!$result['flag'])
 				$this->error($result['message']);

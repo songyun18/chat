@@ -89,7 +89,7 @@ class userController extends RestController
 			unset($data['avatar']);
 		
 		$user_model=D('User');
-		$result=$user_model->update($user_id,$data);
+		$result=$user_model->save($user_id,$data);
 		if(!$result['flag'])
 			$this->error($result['message']);
 		else

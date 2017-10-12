@@ -138,7 +138,7 @@ class AdminModel extends Model
 		$data1['lastlogintime']=0;
 		$data1['lastloginip']='';
 		
-		$result['flag']=parent::add($data1);
+		$result['flag']=$this->insert($data1);
 		if(!$result['flag'])
 			$result['message']='添加记录失败';
 		
@@ -146,9 +146,9 @@ class AdminModel extends Model
 	}
 	
 	//修改记录
-	public function update($userid,$data)
+	public function save($userid,$data)
 	{
-		$result=$this->checkPost($data,'update');
+		$result=$this->checkPost($data,'save');
 		if(!$result['flag'])
 			return $result;
 		
@@ -169,7 +169,7 @@ class AdminModel extends Model
 		
 		$result['flag']=$this->where(array(
 			'userid'=>$userid
-		))->save($data1);
+		))->update($data1);
 		
 		if(!$result['flag'])
 			$result['message']='修改记录失败';
@@ -202,7 +202,7 @@ class AdminModel extends Model
 			"lastloginip"=>ip(),
 			"lastlogintime"=>time(),
 		);
-		$this->where(array('userid'=>$info['userid']))->save($data);
+		$this->where(array('userid'=>$info['userid']))->update($data);
 		
 		$_SESSION['uinfo']=array(
 			'userid'=>$info['userid'],

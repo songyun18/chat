@@ -58,7 +58,7 @@ class chatController extends SystemController
 		{
 			//$this->upload();
 			$data=getPost();
-			$result=$model->update($chat_id,$data);
+			$result=$model->save($chat_id,$data);
 			
 			if(!$result['flag'])
 				$this->error($result['message']);

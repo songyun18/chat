@@ -34,6 +34,6 @@ return array(
     'lock_ex' => '1', // 写入缓存时是否建立文件互斥锁定（如果使用nfs建议关闭）
     'execution_sql' => 0, // EXECUTION_SQL
     'rewrite' => 0,
-    'path_info' => 1
+    'path_info' => 0
 );
 ?>

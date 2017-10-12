@@ -39,7 +39,7 @@ class mailController extends UserController
 		if($info['user_id'] != $this->userId)
 			$this->error('权限不足');
 		
-		//$result=$model->update($mail_id,$data);
+		//$result=$model->save($mail_id,$data);
 		$result=$model->confirm($mail_id,$status);
 		
 		if(!$result['flag'])

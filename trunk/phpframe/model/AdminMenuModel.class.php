@@ -48,7 +48,7 @@ class AdminMenuModel extends Model
 		}
 		return $result;
 	}
-
+	
 	private function _getMenu()
 	{
         $cache = Base::loadSysClass('CacheFile');
@@ -75,5 +75,5 @@ class AdminMenuModel extends Model
 		return $result;
 		
 	}
-
+	
 }

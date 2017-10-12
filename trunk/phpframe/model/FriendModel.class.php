@@ -117,7 +117,7 @@ class FriendModel extends Model
 		unset($result['data']);
 		
 		$data1['add_time']=time();
-		$result['flag']=parent::add($data1);
+		$result['flag']=$this->insert($data1);
 		if(!$result['flag'])
 			$result['message']='插入记录失败';
 
@@ -125,9 +125,9 @@ class FriendModel extends Model
 	}
 
 	//修改记录
-	public function update($friend_id,$data)
+	public function save($friend_id,$data)
 	{
-		$result=$this->checkPost($data,'update');
+		$result=$this->checkPost($data,'save');
 		if(!$result['flag'])
 			return $result;
 
@@ -144,7 +144,7 @@ class FriendModel extends Model
 
 		$result['flag']=$this->where(array(
 			'friend_id'=>$friend_id			
-		))->save($data1);
+		))->update($data1);
 
 		if(!$result['flag'])
 			$result['message']='修改记录失败';

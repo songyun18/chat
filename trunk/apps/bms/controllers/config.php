@@ -23,7 +23,7 @@ class configController extends SystemController
 					unset($data[$key]);
 			}
 			
-			$result=$model->update($data);
+			$result=$model->save($data);
 			
 			if(!$result['flag'])
 				$this->error($result['message']);

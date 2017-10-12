@@ -71,7 +71,7 @@ class adminController extends SystemController
 			if($data['password'] && $data['password']!=$data['password1'])
 				$this->error('两次密码输入不等');
 			
-			$result=$adminModel->update($userid,$data);
+			$result=$adminModel->save($userid,$data);
 			if(!$result['flag'])
 				$this->error($result['message']);
 			else

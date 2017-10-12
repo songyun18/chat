@@ -194,7 +194,7 @@ class UserModel extends Model
 		$data1['gender']=$data['gender'];
 		$data1['reg_time']=$data['reg_time'];
 		
-		$result['flag']=parent::add($data1);
+		$result['flag']=$this->insert($data1);
 		if(!$result['flag'])
 		{
 			$result['message']='写入用户表失败';
@@ -206,9 +206,9 @@ class UserModel extends Model
 	}
 
 	//修改记录
-	public function update($user_id,$data)
+	public function save($user_id,$data)
 	{
-		$result=$this->checkPost($data,'update');
+		$result=$this->checkPost($data,'save');
 		if(!$result['flag'])
 			return $result;
 
@@ -225,7 +225,7 @@ class UserModel extends Model
 		
 		$result['flag']=$this->where(array(
 			'user_id'=>$user_id			
-		))->save($data1);
+		))->update($data1);
 
 		if(!$result['flag'])
 			$result['message']='修改记录失败';
@@ -267,7 +267,7 @@ class UserModel extends Model
 			"last_login_ip"=>ip(),
 			"last_login_time"=>time(),
 		);
-		$result['flag']=$this->where(array('user_id'=>$info['user_id']))->save($data);
+		$result['flag']=$this->where(array('user_id'=>$info['user_id']))->update($data);
 		if(!$result['flag'])
 		{
 			$result['message']='登录失败';
